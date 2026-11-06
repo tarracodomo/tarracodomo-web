@@ -89,3 +89,6 @@ table.spec th{width:40%}
 #telegram+.sub+.grid>.card{flex:0 1 calc((100% - 40px)/3);min-width:0}
 @media(max-width:900px){#telegram+.sub+.grid>.card{flex-basis:calc((100% - 20px)/2)}}
 @media(max-width:600px){#telegram+.sub+.grid>.card{flex-basis:100%}}
+#alcance+.sub+.grid+.sub{font-size:1.45rem;line-height:1.5;color:var(--txt);max-width:760px}
+#alcance+.sub+.grid+.sub strong{color:var(--acc)}
+@media(max-width:600px){#alcance+.sub+.grid+.sub{font-size:1.2rem}}
