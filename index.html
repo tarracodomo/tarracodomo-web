@@ -34,6 +34,11 @@ h2{font-size:1.9rem;margin:70px 0 10px;text-align:center}
 .part svg{width:100%;height:auto;display:block}
 .part h3{font-size:1.05rem}
 .part p{color:var(--mut);font-size:.92rem;margin:0}
+.proj{padding:0;overflow:hidden}
+.proj img{display:block;width:100%;height:220px;object-fit:cover}
+.proj .txt{padding:20px 22px 24px}
+.proj h3{margin:0 0 8px}
+.proj p{margin:0;color:var(--mut);font-size:.95rem}
 ul.list{padding-left:20px;margin:10px 0 0;color:var(--mut)}
 ol.steps{max-width:700px;margin:auto;padding-left:22px}
 ol.steps li{margin-bottom:12px}
@@ -93,10 +98,11 @@ a{color:var(--acc)}
 <li><strong>Te acompañamos después</strong>, por si algo falla o quieres ampliar.</li>
 </ol>
 <h2 id="proyectos">Proyectos</h2>
+<p class="sub">Algunos de nuestros montajes. Las imágenes son ilustrativas.</p>
 <div class="grid">
-<div class="card"><h3>Estación meteo con OLED</h3><p>NodeMCU, sensor DHT11 y pantalla OLED con temperatura, humedad y estado del WiFi.</p></div>
-<div class="card"><h3>Cámaras ESP32-CAM</h3><p>Streaming y captura de imagen integrados en Home Assistant.</p></div>
-<div class="card"><h3>Sensor para oficina</h3><p>Temperatura y humedad con histórico y gráficas.</p></div>
+<div class="card proj"><img src="esp32cam.jpg" alt="Carcasa blanca impresa en 3D para ESP32-CAM" loading="lazy"><div class="txt"><h3>Carcasas impresas en 3D</h3><p>Cajas a medida para proteger cámaras ESP32-CAM, con orificio para el objetivo y ventilación.</p></div></div>
+<div class="card proj"><img src="placas-sensores.jpg" alt="Placas Wemos D1, sensor de ultrasonidos, DHT11 y ESP32-CAM sobre una mesa de trabajo" loading="lazy"><div class="txt"><h3>Placas y sensores</h3><p>Wemos D1 con pantalla OLED, ultrasonidos, DHT11 y ESP32-CAM, listos para integrarse en Home Assistant.</p></div></div>
+<div class="card proj"><img src="escritorio-arduino.jpg" alt="Cajas impresas en 3D con sensores instalados sobre un escritorio" loading="lazy"><div class="txt"><h3>Instalaciones reales</h3><p>Sensores de temperatura y humedad en cajas impresas en 3D, funcionando en casa y en oficina.</p></div></div>
 </div>
 <p style="text-align:center;margin-top:26px"><a class="btn alt" href="https://github.com/icemancoin/domotica_homeassistant_sensoresydispositivos">Ver el código en GitHub</a></p>
 <h2 id="contacto">Contacto</h2>
