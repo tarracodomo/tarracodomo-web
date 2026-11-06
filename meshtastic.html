@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meshtastic: red de radio sin internet | Tarraco Domo</title>
+<meta name="description" content="Meshtastic en Tarragona: red de mensajería por radio LoRa sin internet ni cobertura. Qué es, cómo funciona la malla, hardware compatible, banda de 868 MHz en España y qué montamos.">
+<link rel="stylesheet" href="styles.css">
+<style>.ic{background:#0b1220;border-radius:10px;padding:10px;margin-bottom:14px}.ic svg{width:100%;height:auto;display:block}</style>
+</head><body>
+<nav><div class="wrap"><a class="brandlink" href="index.html"><b>Tarraco Domo</b></a><div><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a><a href="tecnologia.html">Tecnología</a><a href="programacion.html">Programación</a><a href="proyectos.html">Proyectos</a><a href="documentacion.html">Documentación</a><a href="contacto.html">Contacto</a></div></div></nav>
+<header class="hero mini"><div class="wrap"><a href="index.html"><img class="banner" src="image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona"></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap">
+<h1 class="pt" id="meshtastic">Meshtastic</h1>
+<p class="sub">Mensajería por radio que no necesita internet, ni cobertura móvil, ni router. Cada nodo repite el mensaje de los demás y la red se sostiene sola.</p>
+<div class="grid">
+<div class="card"><div class="ic"><svg viewBox="0 0 200 130" aria-hidden="true"><rect x="70" y="40" width="60" height="50" rx="6" fill="#0f766e"/><rect x="86" y="54" width="28" height="22" rx="3" fill="#cbd5e1"/><path d="M100 40V24" stroke="#fbbf24" stroke-width="4"/><circle cx="100" cy="20" r="4" fill="#fbbf24"/><path d="M124 60a26 26 0 0 1 0 20" stroke="#38bdf8" stroke-width="3" fill="none"/><path d="M130 52a36 36 0 0 1 0 36" stroke="#38bdf8" stroke-width="3" fill="none"/></svg></div><h3>Qué es</h3><p>Proyecto de código abierto que convierte radios LoRa baratas en una red de mensajes cifrados, sin infraestructura y con muy poco consumo.</p></div>
+<div class="card"><div class="ic"><svg viewBox="0 0 200 130" aria-hidden="true"><circle cx="40" cy="40" r="12" fill="#38bdf8"/><circle cx="160" cy="40" r="12" fill="#38bdf8"/><circle cx="100" cy="96" r="12" fill="#38bdf8"/><circle cx="100" cy="40" r="8" fill="#fbbf24"/><path d="M52 40h40M108 40h40M52 48l36 40M148 48l-36 40M88 100h24" stroke="#94a3b8" stroke-width="3"/></svg></div><h3>Cómo funciona</h3><p>Los nodos se retransmiten los mensajes entre ellos. El mensaje salta de uno a otro hasta llegar, aunque el origen y el destino no se oigan directamente.</p></div>
+<div class="card"><div class="ic"><svg viewBox="0 0 200 130" aria-hidden="true"><path d="M20 110V70l40-30 40 30v40" fill="none" stroke="#94a3b8" stroke-width="4"/><path d="M110 110V60l30-22 30 22v50" fill="none" stroke="#94a3b8" stroke-width="4"/><circle cx="60" cy="52" r="6" fill="#38bdf8"/><circle cx="140" cy="42" r="6" fill="#38bdf8"/><path d="M66 48c10-12 24-14 34-10" stroke="#fbbf24" stroke-width="3" fill="none" stroke-dasharray="6 5"/><rect x="20" y="110" width="150" height="6" fill="#334155"/></svg></div><h3>Cobertura real</h3><p>En campo abierto, entre 2 y 5 km por salto es lo habitual, y más con altura. En ciudad, entre edificios, baja mucho; por eso importan los nodos elevados.</p></div>
+<div class="card"><div class="ic"><svg viewBox="0 0 200 130" aria-hidden="true"><rect x="60" y="34" width="80" height="62" rx="8" fill="#15803d"/><rect x="112" y="44" width="18" height="8" rx="2" fill="#fbbf24"/><path d="M74 60h20v26H74z" fill="#cbd5e1"/><path d="M120 60v26" stroke="#22c55e" stroke-width="6"/><path d="M52 34l48-20 48 20" fill="none" stroke="#38bdf8" stroke-width="4"/><text x="72" y="112" font-size="11" fill="#e2e8f0" font-family="sans-serif">días de batería</text></svg></div><h3>Batería</h3><p>El radio solo gasta al transmitir. Un nodo con una célula 18650 aguanta días o semanas, y con una placa solar puede quedarse fijo en el monte.</p></div>
+<div class="card"><div class="ic"><svg viewBox="0 0 200 130" aria-hidden="true"><rect x="62" y="30" width="76" height="70" rx="8" fill="#1e293b" stroke="#38bdf8"/><path d="M100 44v18" stroke="#fbbf24" stroke-width="6"/><circle cx="100" cy="78" r="10" fill="none" stroke="#38bdf8" stroke-width="4"/><rect x="96" y="76" width="8" height="6" rx="1" fill="#38bdf8"/><path d="M82 100h36" stroke="#334155" stroke-width="4"/></svg></div><h3>Cifrado</h3><p>Los mensajes van cifrados con la clave del canal. Quien esté en la banda pero no tenga la clave ve tráfico, no contenido.</p></div>
+<div class="card"><div class="ic"><svg viewBox="0 0 200 130" aria-hidden="true"><circle cx="100" cy="64" r="44" fill="none" stroke="#38bdf8" stroke-width="3"/><circle cx="100" cy="64" r="26" fill="none" stroke="#38bdf8" stroke-width="3" opacity=".6"/><circle cx="100" cy="64" r="6" fill="#fbbf24"/><path d="M100 64l30-22" stroke="#38bdf8" stroke-width="3"/><path d="M100 20v8M100 100v8M56 64h8M136 64h8" stroke="#94a3b8" stroke-width="3"/></svg></div><h3>GPS y telemetría</h3><p>Los nodos con GPS comparten posición, y todos envían datos de batería y señal. Sirve para saber dónde está cada equipo sin gastar datos.</p></div>
+</div>
+<div class="doc">
+<h2>Cómo funciona la malla</h2>
+<p>La radio usa LoRa, una modulación de espectro ensanchado que aguanta bien el ruido y llega lejos con muy poca potencia. El mensaje se emite en una banda libre, y cualquier nodo que lo reciba lo vuelve a emitir, hasta un número limitado de saltos. No hay servidor ni torre: si hay dos nodos a alcance, hay red.</p>
+<p>El precio de esa eficiencia es la velocidad: son mensajes cortos de texto y datos, no llamadas ni vídeo. Además, la radio es semidúplex, así que un nodo que está oyendo no está hablando. En una malla con mucho tráfico, los mensajes largos o los envíos constantes saturan el canal.</p>
+
+<h2>Hardware habitual</h2>
+<table class="spec">
+<tr><th>Heltec WiFi LoRa 32 V3</th><td>ESP32-S3 con radio SX1262 y pantalla OLED. Económica y muy usada para el primer nodo o para uno fijo.</td></tr>
+<tr><th>LILYGO T-Beam</th><td>ESP32 con radio, GPS y soporte para célula 18650. Pensada para llevar encima o en el coche.</td></tr>
+<tr><th>RAK WisBlock</th><td>Módulos que se encajan entre sí. Más cara, pero muy flexible y de bajo consumo.</td></tr>
+<tr><th>T-Deck</th><td>Con teclado y pantalla grande. Funciona como walkie de mensajes sin necesidad de teléfono.</td></tr>
+</table>
+
+<h2>En España</h2>
+<ul class="list">
+<li>La banda libre europea es la de <strong>863 a 870 MHz</strong>. Hay que comprar la versión de 868 MHz: la de 915 MHz de América no se comunica con la europea.</li>
+<li>No hace falta licencia, pero sí respetar los límites de uso de la banda y la región configurada en el equipo. Una región mal puesta es la causa más común de que dos nodos no se vean.</li>
+<li>La antena tiene que ser la de la banda correcta. Una antena de 915 MHz en un equipo de 868 reduce el alcance y puede dañar el radio.</li>
+<li>La altura manda más que la potencia. Un nodo en una azotea o en una colina vale más que diez en el suelo.</li>
+</ul>
+
+<h2>Qué montamos</h2>
+<ul class="list">
+<li>Nodos fijos en tejados y puntos altos para cubrir el núcleo urbano.</li>
+<li>Repetidores con placa solar y batería, para sitios sin corriente.</li>
+<li>Pasarela a Home Assistant, para recibir avisos y posiciones en el mismo panel que el resto de la casa.</li>
+<li>Equipos portátiles configurados y probados antes de entregarlos.</li>
+</ul>
+
+<h2>Documentación</h2>
+<p>Los apuntes técnicos están en el repositorio <a href="https://github.com/icemancoin/apuntes-domotica">apuntes-domotica</a>, junto con las guías de Home Assistant y de placas. Si quieres que preparemos un nodo o una cobertura concreta, escríbenos desde la página de <a href="contacto.html">contacto</a>.</p>
+
+<p class="note">Meshtastic es una marca registrada de sus titulares. Esta página es informativa y no está patrocinada ni avalada por el proyecto Meshtastic. El dibujo de las tarjetas es propio y no reproduce el logotipo oficial.</p>
+<p class="back"><a href="documentacion.html">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Política de privacidad</a> · <a href="cookies.html">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a><br><div class="dev" style="margin:18px 0 0">Web en desarrollo</div></footer>
+</body></html>
