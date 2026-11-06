@@ -1,0 +1,87 @@
+name: Ajustes web y tarjetas
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/ajustes-web-tarjetas.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  ajustes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Aplicar cambios delimitados
+        run: |
+          python3 - <<'PY'
+          import re, subprocess, unicodedata
+          from pathlib import Path
+          pending = []
+          descriptions = {
+              'nosotros.html': {
+                  '📹 Cámaras y sensores': 'Consulta la imagen en directo y el estado de los sensores desde un mismo panel. La detección de movimiento permite generar avisos y consultar qué ha ocurrido. El acceso a cámaras y grabaciones se configura respetando la privacidad de las personas.',
+                  '🔔 Avisos en tiempo real': 'Recibe notificaciones cuando se detecta movimiento, se abre una puerta o una medida supera el umbral configurado. Los avisos se adaptan a los horarios y situaciones de cada instalación, para destacar los eventos relevantes. La recepción remota requiere una conexión disponible.',
+                  '📊 Lectura de datos': 'Consulta temperatura, humedad y estado de los dispositivos desde el móvil o el panel de Home Assistant. Las gráficas y el histórico permiten comparar valores y localizar cambios. Los datos disponibles y su conservación dependen de los sensores y de la configuración.',
+                  '🌱 Plantas y flores': 'Consulta la humedad del sustrato con sensores adecuados y configura avisos cuando baje del nivel elegido. Las lecturas ayudan a adaptar el riego a cada planta. La automatización del riego requiere válvulas o bombas compatibles y una instalación preparada para ello.',
+                  '💡 Iluminación': 'Controla las luces desde el móvil o mediante horarios y escenas configuradas en Home Assistant. Los sensores de presencia pueden activar el encendido cuando haga falta. También se pueden programar cambios durante una ausencia, siempre con dispositivos y conexiones adecuados a la instalación.',
+                  '☕ Café': 'Programa un horario para una cafetera compatible o controla su alimentación con un enchufe adecuado a su potencia. No todas las cafeteras arrancan al recibir corriente: se comprueba el funcionamiento del modelo y se respetan las instrucciones y medidas de seguridad del fabricante.',
+                  '🪟 Persianas': 'Sube y baja persianas motorizadas desde el móvil o con horarios programados. El control requiere un módulo compatible con el motor y una instalación que impida activar ambos sentidos a la vez. Las conexiones eléctricas se realizan con las protecciones y requisitos correspondientes.',
+              },
+              'servicios.html': {
+                  '⚙️ Servomotores y movimiento': 'Diseñamos pequeños mecanismos de apertura, cierre y orientación para cámaras, soportes y otros montajes. Se elige el servomotor según el recorrido y la carga, con alimentación y límites de movimiento adecuados. El control se adapta al proyecto y se prueba antes de la entrega.',
+                  '📡 Sensores a medida': 'Integramos sensores de temperatura, humedad, movimiento y otros estados en el sistema de domótica. Las lecturas se muestran en un panel y pueden utilizarse para avisos o automatizaciones. Se seleccionan los componentes según el entorno, la alimentación y la precisión que necesite el proyecto.',
+                  '🖨️ Impresión 3D a medida': 'Diseñamos carcasas, soportes y piezas para adaptar cada dispositivo a su ubicación. Se tienen en cuenta fijaciones, acceso a conectores y ventilación. El material y el acabado se eligen según el uso; una pieza impresa no se considera estanca sin un diseño y una comprobación específicos.',
+              },
+          }
+          for name in subprocess.check_output(['git', 'ls-files', '-z'], text=True).split('\0'):
+              if not name.endswith('.html') or Path(name).is_symlink():
+                  continue
+              p = Path(name)
+              original = p.read_bytes().decode('utf-8')
+              text = original
+              def nav_update(m):
+                  nav = m.group(0)
+                  mesh = re.search(r'<a\b[^>]*href="meshtastic\.html"[^>]*>.*?</a>', nav, re.S)
+                  if not mesh:
+                      return nav
+                  link = mesh.group(0)
+                  nav = nav[:mesh.start()] + nav[mesh.end():]
+                  doc = re.search(r'<a\b[^>]*href="documentacion\.html"[^>]*>', nav)
+                  if not doc:
+                      raise RuntimeError('Menu inesperado: ' + name)
+                  return nav[:doc.start()] + link + nav[doc.start():]
+              text = re.sub(r'<nav\b[^>]*>.*?</nav>', nav_update, text, flags=re.S)
+              for title, paragraph in descriptions.get(p.name, {}).items():
+                  pattern = r'(<h3>' + re.escape(title) + r'</h3><p>).*?(</p>)'
+                  text, n = re.subn(pattern, lambda m: m[1] + paragraph + m[2], text, flags=re.S)
+                  if n != 1:
+                      raise RuntimeError('Tarjeta inesperada: ' + name + ' ' + title)
+              if p.name == 'documentacion.html':
+                  cards = list(re.finditer(r'<a class="card link"[^>]*>.*?</a>', text, re.S))
+                  if len(cards) != 13:
+                      raise RuntimeError('Se esperaban 13 tarjetas de documentacion')
+                  kept = [m.group(0) for m in cards if 'href="doc-arduino-uno.html"' not in m.group(0)]
+                  if len(kept) != 12:
+                      raise RuntimeError('No se ha identificado una sola tarjeta Arduino UNO')
+                  def key(card):
+                      title = re.search(r'<h3>(.*?)</h3>', card, re.S)[1]
+                      return ''.join(c for c in unicodedata.normalize('NFKD', title.casefold()) if not unicodedata.combining(c))
+                  text = text[:cards[0].start()] + '\n'.join(sorted(kept, key=key)) + text[cards[-1].end():]
+                  text = text.replace('Wemos D1 R32 y Arduino UNO, sensores', 'Wemos D1 R32, sensores')
+                  text = text.replace('<div class="grid">', '<div class="grid doc-grid">', 1)
+                  css = '<style>.doc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.doc-grid>a.card.link{display:flex;flex-direction:column;min-width:0}.doc-grid .tag{align-self:flex-start;margin-top:auto}.doc-grid p{padding-bottom:12px}@media(max-width:900px){.doc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.doc-grid{grid-template-columns:minmax(0,1fr)}}</style>'
+                  text = text.replace('</head>', css + '\n</head>', 1)
+              if text != original:
+                  pending.append((p, text.encode('utf-8')))
+          for p, data in pending:
+              p.write_bytes(data)
+              subprocess.run(['git', 'add', '--', str(p)], check=True)
+              print('Actualizado:', p)
+          PY
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git commit -m "Ordena Meshtastic y documentacion y equilibra tarjetas"
+          git push origin HEAD:main
