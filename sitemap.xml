@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://tarracodomo.com/</loc>
-    <lastmod>2026-11-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://tarracodomo.com/</loc><lastmod>2026-11-06</lastmod><priority>1.0</priority></url>
+  <url><loc>https://tarracodomo.com/nosotros</loc><lastmod>2026-11-06</lastmod><priority>0.7</priority></url>
+  <url><loc>https://tarracodomo.com/servicios</loc><lastmod>2026-11-06</lastmod><priority>0.9</priority></url>
+  <url><loc>https://tarracodomo.com/tecnologia</loc><lastmod>2026-11-06</lastmod><priority>0.8</priority></url>
+  <url><loc>https://tarracodomo.com/programacion</loc><lastmod>2026-11-06</lastmod><priority>0.7</priority></url>
+  <url><loc>https://tarracodomo.com/proyectos</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
+  <url><loc>https://tarracodomo.com/documentacion</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
+  <url><loc>https://tarracodomo.com/contacto</loc><lastmod>2026-11-06</lastmod><priority>0.8</priority></url>
 </urlset>
