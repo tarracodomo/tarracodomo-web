@@ -1,0 +1,74 @@
+name: Cabecera comun en toda la web
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/cabecera-comun.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  cabecera:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Unificar navegacion conservando enlaces
+        run: |
+          python3 - <<'PY'
+          import re, subprocess, posixpath
+          from pathlib import Path
+          css = '''.site-nav .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px;min-height:62px;padding:8px 14px}
+          .site-nav .wrap::before{content:none;display:none}
+          .site-nav .site-menu{justify-self:start;min-width:0}
+          .site-nav .site-menu summary{display:grid;place-items:center;width:44px;height:44px;cursor:pointer;list-style:none;border:1px solid #334155;border-radius:10px;color:var(--acc);font-size:26px;line-height:1;background:var(--bg)}
+          .site-nav .site-menu summary::-webkit-details-marker{display:none}
+          .site-nav .site-menu summary:focus-visible,.site-nav a:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+          .site-nav .site-menu[open] summary{background:var(--card)}
+          .site-nav .site-links{position:absolute;top:100%;left:14px;width:260px;max-width:calc(100vw - 28px);max-height:calc(100dvh - 90px);overflow-y:auto;padding:8px;background:var(--bg);border:1px solid #334155;border-radius:12px;box-shadow:0 14px 34px #0009;z-index:30}
+          .site-nav .site-links a{display:block;padding:12px 16px;border-radius:8px;font-size:1rem}
+          .site-nav .site-links a:hover{background:var(--card)}
+          .site-nav .brandlink{justify-self:center;white-space:nowrap;margin:0;text-align:center}
+          .site-nav .brandlink b{font-size:clamp(.9rem,2.8vw,1.15rem)}
+          .site-nav .site-email{justify-self:end;max-width:100%;min-width:0;text-align:right;overflow-wrap:anywhere;font-size:clamp(.68rem,1.6vw,.95rem);line-height:1.35}
+          @media(max-width:380px){.site-nav .wrap{gap:5px;padding-left:8px;padding-right:8px}.site-nav .site-links{left:8px}.site-nav .brandlink b{font-size:.85rem}.site-nav .site-email{font-size:.65rem}}
+          '''
+          pending = []
+          for name in subprocess.check_output(['git','ls-files','-z'], text=True).split('\0'):
+              p = Path(name)
+              if not name.endswith('.html') or p.is_symlink():
+                  continue
+              original = p.read_bytes().decode('utf-8')
+              navs = list(re.finditer(r'<nav\b[^>]*>.*?</nav>', original, re.S))
+              if not navs:
+                  continue
+              if len(navs) != 1:
+                  raise RuntimeError('Navegacion ambigua: ' + name)
+              old = navs[0]
+              anchors = re.findall(r'<a\b[^>]*>.*?</a>', old[0], re.S)
+              brand = [a for a in anchors if 'brandlink' in a]
+              links = [a for a in anchors if 'brandlink' not in a and 'mailto:' not in a]
+              if len(brand) != 1 or len(links) != 9:
+                  raise RuntimeError('Enlaces inesperados: ' + name)
+              new = '<nav class="site-nav" aria-label="Navegacion principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links">' + ''.join(links) + '</div></details>' + brand[0] + '<a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>'
+              result = original[:old.start()] + new + original[old.end():]
+              href = posixpath.relpath('cabecera.css', p.parent.as_posix())
+              stylesheet = '<link rel="stylesheet" href="' + href + '">'
+              if stylesheet not in result:
+                  if '</head>' not in result:
+                      raise RuntimeError('Falta head: ' + name)
+                  result = result.replace('</head>', stylesheet + '\n</head>', 1)
+              if result != original:
+                  pending.append((p, result.encode('utf-8')))
+          if not pending:
+              raise RuntimeError('No se encontraron paginas para modificar')
+          pending.append((Path('cabecera.css'), css.encode('utf-8')))
+          for p,data in pending:
+              p.write_bytes(data)
+              subprocess.run(['git','add','--',str(p)], check=True)
+              print('Actualizado:',p)
+          PY
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git commit -m "Cabecera comun: menu izquierda, nombre centrado y correo derecha"
+          git push origin HEAD:main
