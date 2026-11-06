@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sensor ultrasónico HC-SR04: especificaciones y conexión | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica del sensor de distancia ultrasónico HC-SR04: alimentación de 5 V, alcance de 2 a 400 cm, conexión con Wemos D1, ESP32 y Arduino.">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<nav><div class="wrap"><a class="brandlink" href="index.html"><b>Tarraco Domo</b></a><div><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a><a href="tecnologia.html">Tecnología</a><a href="programacion.html">Programación</a><a href="proyectos.html">Proyectos</a><a class="act" href="documentacion.html">Documentación</a><a href="contacto.html">Contacto</a></div></div></nav>
+<header class="hero mini"><div class="wrap"><a href="index.html"><img class="banner" src="image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona"></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap">
+<h1 class="pt">Sensor ultrasónico HC-SR04</h1>
+<p class="sub">Mide la distancia a un objeto enviando un pulso de sonido que el ser humano no oye y esperando su eco.</p>
+<div class="doc">
+<h2>Especificaciones técnicas</h2>
+<table class="spec">
+<tr><th>Alimentación</th><td>5 V (rango de 4,5 a 5,5 V)</td></tr>
+<tr><th>Consumo</th><td>Unos 15 mA en funcionamiento</td></tr>
+<tr><th>Frecuencia ultrasónica</th><td>40 kHz</td></tr>
+<tr><th>Alcance</th><td>Aproximadamente de 2 cm a 400 cm</td></tr>
+<tr><th>Pulso de disparo (TRIG)</th><td>Mínimo 10 µs en nivel alto</td></tr>
+<tr><th>Salida (ECHO)</th><td>Pulso digital de 5 V cuya duración es el tiempo de ida y vuelta</td></tr>
+<tr><th>Pines</th><td>VCC, TRIG, ECHO y GND</td></tr>
+</table>
+<h2>Cómo funciona</h2>
+<p>La placa pone TRIG en nivel alto durante al menos 10 µs. El sensor emite entonces una ráfaga de 40 kHz y mantiene ECHO en alto hasta que vuelve el eco. La distancia se calcula a partir de ese tiempo: es la mitad del recorrido de ida y vuelta multiplicada por la velocidad del sonido, unos 343 m/s en aire a temperatura ambiente. En la práctica, equivale a dividir los microsegundos del pulso entre 58 para obtener centímetros.</p>
+<h2>Cómo se conecta</h2>
+<ul class="list">
+<li><strong>VCC:</strong> a 5 V. En una Wemos D1 se toma del pin de 5 V.</li>
+<li><strong>TRIG:</strong> a un pin digital de salida. Un nivel alto de 3,3 V suele bastar para dispararlo.</li>
+<li><strong>ECHO:</strong> a un pin digital de entrada.</li>
+<li><strong>GND:</strong> a masa.</li>
+</ul>
+<h2>Importante con placas de 3,3 V</h2>
+<p>La salida ECHO es de 5 V. Un Arduino UNO puede leerla directamente, pero una Wemos D1, un ESP8266 o un ESP32 trabajan a 3,3 V y no deben recibir 5 V en sus pines. Hay que reducir la señal con un divisor de tensión, por ejemplo con resistencias de 1 kΩ y 2 kΩ (o de 10 kΩ y 20 kΩ), o con un adaptador de niveles lógicos.</p>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Medir el nivel de un depósito de agua</li>
+<li>Sensor de aparcamiento o de proximidad</li>
+<li>Detectar presencia ante una puerta</li>
+<li>Robots que esquivan obstáculos</li>
+<li>Enviar la distancia a Home Assistant con ESPHome</li>
+</ul>
+<h2>Qué tener en cuenta</h2>
+<ul class="list">
+<li>Las superficies blandas, como la tela, o muy inclinadas reflejan mal el sonido y dan lecturas poco fiables.</li>
+<li>Fuera del rango de 2 a 400 cm las lecturas pueden ser inválidas.</li>
+<li>La velocidad del sonido cambia con la temperatura, así que para más precisión se puede compensar con un sensor <a href="doc-dht.html">DHT</a>.</li>
+<li>Para depuración y para medir en exteriores o con humedad, el HC-SR04 no es estanco; existen versiones impermeables.</li>
+</ul>
+<p class="note">Fuentes: <a href="https://mischianti.org/hc-sr04-ultrasonic-sensor-with-esp32-and-arduino-complete-guide/" target="_blank" rel="noopener noreferrer">Mischianti</a>, <a href="https://solderhub.com/sensors/hc-sr04" target="_blank" rel="noopener noreferrer">SolderHub</a> y <a href="https://esp32engine.com/components/hc-sr04.html" target="_blank" rel="noopener noreferrer">ESP32 Engine</a>. Los datos son orientativos y varían entre fabricantes.</p>
+<p class="back"><a href="documentacion.html">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Política de privacidad</a> · <a href="cookies.html">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a><br><div class="dev" style="margin:18px 0 0">Web en desarrollo</div></footer>
+</body></html>

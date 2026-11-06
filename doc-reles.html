@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módulos de relé y contactores: guía y seguridad | Tarraco Domo</title>
+<meta name="description" content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V.">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<nav><div class="wrap"><a class="brandlink" href="index.html"><b>Tarraco Domo</b></a><div><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a><a href="tecnologia.html">Tecnología</a><a href="programacion.html">Programación</a><a href="proyectos.html">Proyectos</a><a class="act" href="documentacion.html">Documentación</a><a href="contacto.html">Contacto</a></div></div></nav>
+<header class="hero mini"><div class="wrap"><a href="index.html"><img class="banner" src="image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona"></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap">
+<h1 class="pt">Módulos de relé y contactores</h1>
+<p class="sub">Cómo una placa de 3,3 V puede encender y apagar luces, bombas o motores de forma segura.</p>
+<div class="doc">
+<h2>Aviso de seguridad</h2>
+<p class="note"><strong>La tensión de red (230 V) puede ser mortal.</strong> Corta la corriente en el cuadro eléctrico y comprueba con un detector de tensión antes de tocar cualquier cable. Si no tienes experiencia, la parte de 230 V debe hacerla un instalador eléctrico autorizado. Usa siempre una caja aislante y cierra los bornes.</p>
+<h2>Módulo de relé</h2>
+<p>Es la forma habitual de que un microcontrolador conmute una carga. Los módulos comunes de 1, 2, 4 u 8 canales se alimentan a 5 V y, mejor si llevan optoacoplador, aíslan la placa del circuito de potencia.</p>
+<table class="spec">
+<tr><th>Capacidad típica de contactos</th><td>10 A a 125 V CA, 7 A a 240 V CA y 7 A a 28 V CC (carga resistiva)</td></tr>
+<tr><th>Alimentación de la bobina</th><td>5 V, unos 70 mA por relé</td></tr>
+<tr><th>Señal de control</th><td>Entrada IN por canal; muchos módulos se activan con nivel bajo</td></tr>
+<tr><th>Contactos</th><td>COM (común), NO (normalmente abierto) y NC (normalmente cerrado)</td></tr>
+<tr><th>Aislamiento</th><td>Optoacoplador (por ejemplo PC817) en los módulos que lo incluyen</td></tr>
+</table>
+<p>La capacidad real depende del modelo y del tipo de carga. Para motores o cargas inductivas hay que reducirla bastante, y a 230 V conviene planificar con unos 7 A en lugar de 10 A.</p>
+<h2>Conexión de los contactos</h2>
+<ul class="list">
+<li><strong>COM y NO:</strong> la carga se enciende cuando el relé se activa. Es la conexión más habitual.</li>
+<li><strong>COM y NC:</strong> la carga está encendida en reposo y se apaga al activar el relé.</li>
+<li>El relé solo corta la fase. El neutro y la tierra van directamente a la carga.</li>
+</ul>
+<h2>Conexión con ESP32 y Wemos D1</h2>
+<ul class="list">
+<li>Si el módulo tiene un puente JD-VCC, quita el puente y alimenta las bobinas con una fuente de 5 V independiente. Así la lógica queda aíslada de la potencia.</li>
+<li>Conecta VCC del módulo a 3,3 V, que alimenta los LED del optoacoplador, y une las masas de la placa y de la fuente.</li>
+<li>En un ESP32, usa pines seguros en el arranque, como GPIO 5, 18, 19 y 21.</li>
+<li>En una Wemos D1, evita los pines que condicionan el arranque del ESP8266 (D3, D4 y D8) para no bloquear el inicio.</li>
+<li>Si el módulo se activa con nivel bajo, el relé puede quedar activado al arrancar; conviene probarlo sin carga antes.</li>
+</ul>
+<h2>Contactores</h2>
+<p>Un contactor es un relé de potencia, pensado para cargas grandes como motores, bombas, calentadores de agua o climatización. Se instala en el cuadro eléctrico sobre raíl DIN. Su bobina (de 230 V CA o de 24 V, según el modelo) la gobierna un pequeño relé: la placa actúa sobre el módulo de relé, y este sobre la bobina del contactor, que conmuta la carga pesada.</p>
+<ul class="list">
+<li>Elige el contactor según la corriente de la carga y la tensión de su bobina.</li>
+<li>Para aplicaciones críticas, como calentadores de agua o equipos médicos, se usan contactores certificados en lugar de relés de módulo, y debe participar un instalador autorizado.</li>
+<li>Instala siempre protección en el cuadro: magnetotérmico y diferencial.</li>
+</ul>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Encender luces y enchufes desde el móvil</li>
+<li>Riego automático y bombas, por ejemplo con el <a href="doc-hc-sr04.html">sensor ultrasónico</a> para medir el nivel del depósito</li>
+<li>Control de persianas, calefacción y puertas de garaje</li>
+<li>Relés integrados en Home Assistant con ESPHome</li>
+</ul>
+<p class="note">Fuentes: <a href="https://electricalflux.com/mcu-coding/esp32-relay-module-wiring-code-debug" target="_blank" rel="noopener noreferrer">ElectricalFlux</a>, <a href="https://makerhub.my/tutorials/relay-module-arduino-safety/" target="_blank" rel="noopener noreferrer">MakerHub</a>, <a href="https://projectslearner.com/esp32/relay-module" target="_blank" rel="noopener noreferrer">Projects Learner</a> y <a href="https://electronics.alibaba.com/buyingguides/esp32-relay-guide-wiring,-safety-real-world-use" target="_blank" rel="noopener noreferrer">Alibaba Electronics</a>. Los datos son orientativos; consulta siempre la ficha del módulo o contactor concreto y la normativa eléctrica vigente.</p>
+<p class="back"><a href="documentacion.html">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Política de privacidad</a> · <a href="cookies.html">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a><br><div class="dev" style="margin:18px 0 0">Web en desarrollo</div></footer>
+</body></html>
