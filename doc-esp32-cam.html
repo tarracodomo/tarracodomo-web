@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESP32-CAM: especificaciones y aplicaciones | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica de la ESP32-CAM (AI-Thinker): cámara OV2640, WiFi, Bluetooth, ranura microSD, pines clave y aplicaciones de vigilancia doméstica.">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<nav><div class="wrap"><a class="brandlink" href="index.html"><b>Tarraco Domo</b></a><div><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a><a href="tecnologia.html">Tecnología</a><a href="programacion.html">Programación</a><a href="proyectos.html">Proyectos</a><a class="act" href="documentacion.html">Documentación</a><a href="contacto.html">Contacto</a></div></div></nav>
+<header class="hero mini"><div class="wrap"><a href="index.html"><img class="banner" src="image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona"></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap">
+<h1 class="pt">ESP32-CAM</h1>
+<p class="sub">Módulo de bajo coste con cámara, WiFi y Bluetooth, muy usado en vigilancia doméstica básica.</p>
+<div class="doc">
+<h2>Especificaciones técnicas</h2>
+<table class="spec">
+<tr><th>Chip</th><td>ESP32-S, a 240 MHz</td></tr>
+<tr><th>Cámara</th><td>OV2640, hasta 1600 × 1200</td></tr>
+<tr><th>Memoria</th><td>520 KB de SRAM, 4 MB de flash y PSRAM externa (4 MB utilizables; puede variar según el fabricante)</td></tr>
+<tr><th>WiFi</th><td>802.11 b/g/n</td></tr>
+<tr><th>Bluetooth</th><td>Sí</td></tr>
+<tr><th>Almacenamiento</th><td>Ranura para tarjeta microSD</td></tr>
+<tr><th>Pines</th><td>25 GPIO utilizables</td></tr>
+<tr><th>Indicadores</th><td>LED de flash (GPIO4) y LED rojo (GPIO33)</td></tr>
+<tr><th>Tensión de las señales</th><td>3,3 V</td></tr>
+</table>
+<h2>Cómo se programa</h2>
+<p>Esta placa no trae puerto USB, así que se programa con un adaptador USB-serie (tipo FTDI). Después se puede usar desde Arduino IDE o con ESPHome, que la integra directamente en Home Assistant.</p>
+<h2>Pines que conviene conocer</h2>
+<ul class="list">
+<li><strong>GPIO0:</strong> sirve a la vez como reloj de la cámara y como pin de arranque. Para cargar un programa hay que ponerlo a GND durante el arranque.</li>
+<li><strong>GPIO12:</strong> debe estar en nivel bajo al arrancar.</li>
+<li><strong>Pines de la cámara:</strong> están fijados por la placa y no se pueden cambiar.</li>
+<li><strong>Tarjeta microSD:</strong> ocupa la mayoría de los pines libres (GPIO14, 15, 2, 4, 12 y 13). El GPIO4 es también el LED de flash.</li>
+<li><strong>GPIO16:</strong> conecta con la PSRAM interna de la placa.</li>
+</ul>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Vigilancia doméstica básica con imagen en directo</li>
+<li>Capturas de fotos con aviso al móvil al detectar movimiento (con un sensor PIR)</li>
+<li>Cámaras integradas en Home Assistant</li>
+<li>Proyectos de visión por ordenador sencillos</li>
+</ul>
+<h2>Qué tener en cuenta</h2>
+<ul class="list">
+<li>La alimentación debe ser estable, porque la cámara y el WiFi consumen picos de corriente.</li>
+<li>Una cámara instalada en casa, en un local o en una oficina debe respetar la normativa de privacidad.</li>
+</ul>
+<p class="note">Fuentes: <a href="https://randomnerdtutorials.com/esp32-cam-ai-thinker-pinout/" target="_blank" rel="noopener noreferrer">Random Nerd Tutorials</a>, <a href="https://www.espboards.dev/esp32/esp32cam/" target="_blank" rel="noopener noreferrer">ESPboards</a> y <a href="https://esp32engine.com/components/esp32-cam.html" target="_blank" rel="noopener noreferrer">ESP32 Engine</a>. Los datos son orientativos y varían entre fabricantes.</p>
+<p class="back"><a href="documentacion.html">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Política de privacidad</a> · <a href="cookies.html">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a><br><div class="dev" style="margin:18px 0 0">Web en desarrollo</div></footer>
+</body></html>

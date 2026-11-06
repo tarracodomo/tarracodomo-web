@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESP8266: especificaciones y aplicaciones | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica del ESP8266EX: procesador de 32 bits hasta 160 MHz, WiFi 802.11 b/g/n y 17 pines GPIO. Aplicaciones de domótica y consideraciones.">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<nav><div class="wrap"><a class="brandlink" href="index.html"><b>Tarraco Domo</b></a><div><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a><a href="tecnologia.html">Tecnología</a><a href="programacion.html">Programación</a><a href="proyectos.html">Proyectos</a><a class="act" href="documentacion.html">Documentación</a><a href="contacto.html">Contacto</a></div></div></nav>
+<header class="hero mini"><div class="wrap"><a href="index.html"><img class="banner" src="image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona"></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap">
+<h1 class="pt">ESP8266</h1>
+<p class="sub">El chip WiFi económico que popularizó los dispositivos conectados caseros.</p>
+<div class="doc">
+<h2>Especificaciones técnicas</h2>
+<table class="spec">
+<tr><th>Chip</th><td>ESP8266EX de Espressif</td></tr>
+<tr><th>Procesador</th><td>Tensilica L106 de 32 bits</td></tr>
+<tr><th>Velocidad máxima</th><td>160 MHz</td></tr>
+<tr><th>WiFi</th><td>802.11 b/g/n (2,4 GHz), hasta 72,2 Mbps</td></tr>
+<tr><th>Modos WiFi</th><td>Estación, punto de acceso (SoftAP) y modo promiscuo</td></tr>
+<tr><th>Pines GPIO</th><td>17, asignables a distintas funciones</td></tr>
+<tr><th>Bluetooth</th><td>No incluye</td></tr>
+<tr><th>Tensión de trabajo</th><td>3,3 V</td></tr>
+</table>
+<h2>Una placa, muchas versiones</h2>
+<p>El ESP8266 es la base de muchas placas de desarrollo, como la Wemos D1, la Wemos D1 mini o las NodeMCU. Cada placa añade su propio puerto USB, regulador de tensión y distribución de pines.</p>
+<h2>Cómo se programa</h2>
+<p>Se programa con Arduino IDE, usando el soporte para ESP8266, y también con ESPHome, que permite configurarlo en YAML e integrarlo directamente con Home Assistant.</p>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Estaciones meteorológicas con sensor de temperatura y humedad</li>
+<li>Control de relés, luces y enchufes por WiFi</li>
+<li>Sensores sencillos conectados a Home Assistant</li>
+<li>Prototipos de domótica de bajo coste</li>
+</ul>
+<h2>Qué tener en cuenta</h2>
+<ul class="list">
+<li>Funciona a 3,3 V: no conectes señales de 5 V directamente a sus pines.</li>
+<li>No tiene Bluetooth. Si lo necesitas, conviene valorar un ESP32.</li>
+<li>La hoja de datos de Espressif de noviembre de 2025 lo marca como NRND (no recomendado para nuevos diseños). Sigue siendo muy válido para proyectos caseros y prototipos, pero para un producto nuevo conviene valorar chips más recientes.</li>
+</ul>
+<p class="note">Fuentes: <a href="https://documentation.espressif.com/0a-esp8266ex_datasheet_en.html" target="_blank" rel="noopener noreferrer">hoja de datos oficial de Espressif</a> y <a href="https://docs.gizwits.com/en-us/module_source/esp8266/esp8266_datasheet.html" target="_blank" rel="noopener noreferrer">Gizwits</a>. Los datos son orientativos.</p>
+<p class="back"><a href="documentacion.html">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Política de privacidad</a> · <a href="cookies.html">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a><br><div class="dev" style="margin:18px 0 0">Web en desarrollo</div></footer>
+</body></html>

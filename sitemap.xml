@@ -7,7 +7,10 @@
   <url><loc>https://tarracodomo.com/programacion</loc><lastmod>2026-11-06</lastmod><priority>0.7</priority></url>
   <url><loc>https://tarracodomo.com/proyectos</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
   <url><loc>https://tarracodomo.com/documentacion</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
+  <url><loc>https://tarracodomo.com/doc-esp8266</loc><lastmod>2026-11-06</lastmod><priority>0.5</priority></url>
   <url><loc>https://tarracodomo.com/doc-esp32</loc><lastmod>2026-11-06</lastmod><priority>0.5</priority></url>
+  <url><loc>https://tarracodomo.com/doc-esp32-cam</loc><lastmod>2026-11-06</lastmod><priority>0.5</priority></url>
+  <url><loc>https://tarracodomo.com/doc-esp32-c6</loc><lastmod>2026-11-06</lastmod><priority>0.5</priority></url>
   <url><loc>https://tarracodomo.com/doc-arduino-uno</loc><lastmod>2026-11-06</lastmod><priority>0.5</priority></url>
   <url><loc>https://tarracodomo.com/doc-wemos-d1</loc><lastmod>2026-11-06</lastmod><priority>0.5</priority></url>
   <url><loc>https://tarracodomo.com/contacto</loc><lastmod>2026-11-06</lastmod><priority>0.8</priority></url>
