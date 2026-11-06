@@ -1,0 +1,33 @@
+name: Carga inalambrica drones
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/carga-inalambrica-drones.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Mencionar la estacion de carga inalambrica
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('tecnologia.html')
+          original = p.read_bytes().decode('utf-8')
+          old = '<p>Cuando un dron baja a cambiar batería, otro ocupa su puesto y la ronda no se interrumpe. Así la vigilancia puede seguir de día y de noche sin una persona pendiente de cada aeronave.</p>'
+          new = '<p>Cuando un dron baja a cambiar batería, otro ocupa su puesto y la ronda no se interrumpe. Descansan sobre una estación de carga inalámbrica, que los deja listos para el siguiente turno. Así la vigilancia puede seguir de día y de noche sin una persona pendiente de cada aeronave.</p>'
+          if original.count(old) != 1:
+              raise RuntimeError('Texto de la tarjeta no encontrado')
+          p.write_bytes(original.replace(old, new, 1).encode('utf-8'))
+          print('ok')
+          PY
+          git add -- tecnologia.html
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git commit -m "Tecnologia: estacion de carga inalambrica en los drones"
+          git push origin HEAD:main
