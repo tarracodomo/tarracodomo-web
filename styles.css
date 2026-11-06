@@ -30,6 +30,7 @@ a.card.link{display:block;text-decoration:none;color:var(--txt)}
 a.card.link:hover{border-color:var(--acc)}
 a.card.link p{color:var(--mut);margin:0}
 .tag{display:inline-block;margin-top:10px;padding:2px 10px;border:1px solid #334155;border-radius:999px;font-size:.75rem;color:var(--mut)}
+.tag.ok{border-color:var(--acc);color:var(--acc)}
 .story{max-width:780px;margin:0 auto;font-size:1.05rem}
 .story p{margin:0 0 16px}
 .values .card{text-align:center}
@@ -54,5 +55,12 @@ ol.steps{max-width:700px;margin:auto;padding-left:22px}
 ol.steps li{margin-bottom:12px}
 .contact{background:var(--card);border-radius:14px;padding:36px;text-align:center;border:1px solid var(--acc)}
 .contact p{margin:0 0 14px}
+table.spec{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden}
+table.spec th,table.spec td{padding:12px 16px;text-align:left;border-bottom:1px solid #334155;vertical-align:top}
+table.spec th{width:38%;color:var(--acc);font-weight:600}
+.doc{max-width:860px;margin:0 auto}
+.doc h2{text-align:left;font-size:1.5rem;margin:40px 0 12px}
+.doc p{color:var(--txt)}
+.back{margin:24px 0 0}
 footer{text-align:center;color:var(--mut);padding:40px 0;font-size:.85rem}
 a{color:var(--acc)}

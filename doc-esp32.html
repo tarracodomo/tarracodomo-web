@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESP32: especificaciones y aplicaciones | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica del ESP32: procesador de doble núcleo a 240 MHz, 520 KB de SRAM, WiFi y Bluetooth. Pines a evitar y aplicaciones de domótica.">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<nav><div class="wrap"><a class="brandlink" href="index.html"><b>Tarraco Domo</b></a><div><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a><a href="tecnologia.html">Tecnología</a><a href="programacion.html">Programación</a><a href="proyectos.html">Proyectos</a><a class="act" href="documentacion.html">Documentación</a><a href="contacto.html">Contacto</a></div></div></nav>
+<header class="hero mini"><div class="wrap"><a href="index.html"><img class="banner" src="image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona"></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap">
+<h1 class="pt">ESP32</h1>
+<p class="sub">Microcontrolador con WiFi y Bluetooth, de doble núcleo, muy usado en domótica y proyectos conectados.</p>
+<div class="doc">
+<h2>Especificaciones técnicas</h2>
+<table class="spec">
+<tr><th>Procesador</th><td>Xtensa de 32 bits LX6, doble núcleo</td></tr>
+<tr><th>Velocidad máxima</th><td>240 MHz</td></tr>
+<tr><th>Memoria SRAM</th><td>520 KB</td></tr>
+<tr><th>WiFi</th><td>802.11 b/g/n (2,4 GHz)</td></tr>
+<tr><th>Bluetooth</th><td>Bluetooth clásico y BLE</td></tr>
+<tr><th>Conversores ADC</th><td>Dos de 12 bits, hasta 18 canales</td></tr>
+<tr><th>Conversores DAC</th><td>Dos de 8 bits</td></tr>
+<tr><th>Otros periféricos</th><td>UART, I²C, I²S, PWM, sensores táctiles y RMT</td></tr>
+<tr><th>Temperatura de trabajo</th><td>De −40 a 85 °C</td></tr>
+</table>
+<h2>Cómo se programa</h2>
+<p>Se puede programar con Arduino IDE, con ESP-IDF (el entorno oficial de Espressif) o con MicroPython. Con ESPHome también se puede configurar en YAML e integrar directamente con Home Assistant.</p>
+<h2>Pines que conviene conocer</h2>
+<p>Algunos pines tienen funciones especiales al arrancar y usarlos sin cuidado puede impedir que la placa inicie o que se pueda programar.</p>
+<ul class="list">
+<li><strong>GPIO0:</strong> debe estar en nivel alto al arrancar; si está en bajo al reiniciar, la placa entra en modo de programación.</li>
+<li><strong>GPIO2 y GPIO5:</strong> pines de arranque; un nivel incorrecto en el reinicio puede impedir el inicio normal.</li>
+<li><strong>GPIO1 y GPIO3:</strong> son el puerto serie usado para programar y para los mensajes de depuración.</li>
+<li><strong>GPIO6 y siguientes de la memoria flash:</strong> están reservados para la flash interna y no se usan como entradas o salidas normales.</li>
+</ul>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Domótica y dispositivos para casa conectada</li>
+<li>Redes de sensores de temperatura, humedad y movimiento</li>
+<li>Control de relés, luces y enchufes</li>
+<li>Robótica y servomotores</li>
+<li>Dispositivos portátiles de bajo consumo</li>
+</ul>
+<h2>Variantes que usamos</h2>
+<p>Trabajamos con el ESP32-CAM para cámaras y con el ESP32-C6 para dispositivos más modernos. Cada uno tendrá su propia ficha.</p>
+<p class="note">Fuentes: <a href="https://documentation.espressif.com/esp32_datasheet_en.html" target="_blank" rel="noopener noreferrer">hoja de datos oficial de Espressif</a> y <a href="https://www.espboards.dev/esp32/microcontroller/esp32/" target="_blank" rel="noopener noreferrer">ESPboards</a>. Los datos son orientativos; consulta siempre la hoja de datos del módulo concreto.</p>
+<p class="back"><a href="documentacion.html">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Política de privacidad</a> · <a href="cookies.html">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a><br><div class="dev" style="margin:18px 0 0">Web en desarrollo</div></footer>
+</body></html>
