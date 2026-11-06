@@ -1,40 +1,85 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tarraco Domo | Domótica, sensores y piezas 3D en Tarragona</title>
-<meta name="description" content="Tarraco Domo: domótica con Home Assistant, sensores, cámaras ESP32-CAM e impresión 3D a medida en Tarragona.">
+<title>Tarraco Domo | Domótica, cámaras y monitorización en Tarragona</title>
+<meta name="description" content="Tarraco Domo: domótica con Home Assistant, cámaras de seguridad, monitorización en tiempo real desde el móvil, sensores e impresión 3D a medida en Tarragona.">
 <style>
 :root{--bg:#0f172a;--card:#1e293b;--acc:#38bdf8;--txt:#e2e8f0;--mut:#94a3b8}
 *{box-sizing:border-box}
-body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6}
-.wrap{max-width:1050px;margin:auto;padding:0 20px}
-header.hero{padding:90px 0 70px;text-align:center;background:linear-gradient(160deg,#0f172a,#1e3a5f)}
-h1{font-size:2.8rem;margin:0 0 10px}
-h2{font-size:1.8rem;margin:60px 0 24px;text-align:center}
-.lead{color:var(--mut);max-width:620px;margin:0 auto 28px;font-size:1.15rem}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.65}
+.wrap{max-width:1100px;margin:auto;padding:0 20px}
+nav{position:sticky;top:0;background:rgba(15,23,42,.94);border-bottom:1px solid #334155;z-index:10}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;flex-wrap:wrap;gap:8px}
+nav b{color:var(--acc);font-size:1.15rem}
+nav a{color:var(--txt);text-decoration:none;margin-left:16px;font-size:.95rem}
+nav a:hover{color:var(--acc)}
+header.hero{padding:100px 0 80px;text-align:center;background:linear-gradient(160deg,#0f172a,#1e3a5f)}
+h1{font-size:3rem;margin:0 0 10px}
+h2{font-size:1.9rem;margin:70px 0 10px;text-align:center}
+.sub{color:var(--mut);text-align:center;max-width:680px;margin:0 auto 30px}
+.lead{color:var(--mut);max-width:680px;margin:0 auto 28px;font-size:1.15rem}
 .btn{display:inline-block;padding:12px 26px;margin:6px;border-radius:8px;text-decoration:none;font-weight:600;background:var(--acc);color:#0f172a}
 .btn.alt{background:transparent;border:2px solid var(--acc);color:var(--acc)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
 .card{background:var(--card);border-radius:14px;padding:26px;border:1px solid #334155}
 .card h3{margin-top:0;color:var(--acc)}
-.card .note{color:var(--mut);font-size:.9rem;font-style:italic;margin-top:14px}
+.story{max-width:780px;margin:0 auto;font-size:1.05rem}
+.story p{margin:0 0 16px}
+.values .card{text-align:center}
+.values .card h3{font-size:1.3rem}
+.part .pic{background:#0b1220;border-radius:10px;padding:10px;margin-bottom:14px}
+.part svg{width:100%;height:auto;display:block}
+.part h3{font-size:1.05rem}
+.part p{color:var(--mut);font-size:.92rem;margin:0}
+ul.list{padding-left:20px;margin:10px 0 0;color:var(--mut)}
 ol.steps{max-width:700px;margin:auto;padding-left:22px}
 ol.steps li{margin-bottom:12px}
 .contact{background:var(--card);border-radius:14px;padding:36px;text-align:center;border:1px solid var(--acc)}
 footer{text-align:center;color:var(--mut);padding:40px 0;font-size:.85rem}
 a{color:var(--acc)}
 </style></head><body>
+<nav><div class="wrap"><b>Tarraco Domo</b><div><a href="#historia">Historia</a><a href="#servicios">Servicios</a><a href="#tecnologia">Tecnología</a><a href="#proyectos">Proyectos</a><a href="#contacto">Contacto</a></div></div></nav>
 <header class="hero"><div class="wrap">
 <h1>Tarraco Domo</h1>
-<p class="lead"><strong>Domótica, sensores y piezas a medida en 3D en Tarragona.</strong><br>Hacemos tu casa o negocio más inteligente, con tecnología abierta y sin complicaciones.</p>
+<p class="lead"><strong>Domótica, cámaras de seguridad y monitorización en tiempo real en Tarragona.</strong><br>Tecnología abierta, hecha a tu medida, con el cliente siempre en el centro.</p>
 <a class="btn" href="#contacto">Pedir presupuesto</a>
-<a class="btn alt" href="#proyectos">Ver proyectos</a>
+<a class="btn alt" href="#servicios">Ver servicios</a>
 </div></header>
 <main class="wrap">
-<h2>Servicios</h2>
+<h2 id="historia">Nuestra historia</h2>
+<p class="sub">De un proyecto casero a un servicio profesional.</p>
+<div class="story">
+<p>Tarraco Domo nace en Tarragona de una afición: montar en casa nuestros propios sensores, cámaras y automatismos. Empezamos con una estación meteorológica con una placa ESP8266, un sensor de temperatura y una pantalla OLED, y con unas cámaras ESP32-CAM integradas en Home Assistant. Lo que comenzó como un experimento nos enseñó que la domótica no tiene por qué ser cara, cerrada ni complicada.</p>
+<p>El nombre une dos ideas. <strong>Tarraco</strong> es el nombre romano de Tarragona, la ciudad donde vivimos y trabajamos. <strong>Domo</strong> viene de domótica: la tecnología que hace una casa o un negocio más cómodo, seguro y eficiente.</p>
+<p>Creamos esta empresa para ofrecer a nuestros vecinos y a pequeños negocios lo que aprendimos montando estos sistemas: soluciones sencillas, abiertas y que se pueden mantener y ampliar con el tiempo, sin depender de aplicaciones cerradas ni suscripciones obligatorias.</p>
+</div>
+<h2>Cliente, compromiso y calidad</h2>
+<p class="sub">En Tarraco Domo trabajamos con tres ideas claras.</p>
+<div class="grid values">
+<div class="card"><h3>Cliente</h3><p>Escuchamos primero. Cada instalación parte de lo que necesita el cliente, no de un catálogo cerrado.</p></div>
+<div class="card"><h3>Compromiso</h3><p>Nos comprometemos a explicar con claridad lo que hacemos, cumplir lo acordado y seguir a tu lado después de la instalación.</p></div>
+<div class="card"><h3>Calidad</h3><p>Elegimos componentes adecuados, montamos con cuidado y probamos cada sistema antes de entregarlo. La calidad se nota con el uso diario.</p></div>
+</div>
+<h2 id="servicios">Servicios</h2>
+<p class="sub">Para información sobre precios y presupuesto, contacta con nosotros.</p>
 <div class="grid">
-<div class="card"><h3>🏠 Domótica con Home Assistant</h3><p>Instalación y configuración de Home Assistant, automatizaciones, paneles y acceso seguro desde fuera.</p><p class="note">Para información sobre precios y presupuesto, contacta con nosotros.</p></div>
-<div class="card"><h3>📡 Sensores y cámaras</h3><p>Sensores de temperatura y humedad, estaciones meteo y cámaras ESP32-CAM integradas en tu sistema.</p><p class="note">Para información sobre precios y presupuesto, contacta con nosotros.</p></div>
-<div class="card"><h3>🖨️ Impresión 3D a medida</h3><p>Carcasas, soportes y piezas personalizadas para tus proyectos o repuestos.</p><p class="note">Para información sobre precios y presupuesto, contacta con nosotros.</p></div>
+<div class="card"><h3>🏠 Domótica con Home Assistant</h3><p>Instalación y configuración de Home Assistant, automatizaciones, escenas y paneles de control, con acceso seguro desde fuera de casa.</p></div>
+<div class="card"><h3>📹 Cámaras de seguridad</h3><p>Cámaras para vigilar tu casa, local u oficina: imagen en directo, captura de fotos y avisos al móvil cuando se detecta movimiento con sensores PIR.</p><ul class="list"><li>Cámaras ESP32-CAM para vigilancia doméstica básica</li><li>Cámaras IP para instalaciones más exigentes</li><li>Instalación respetando la normativa de privacidad</li></ul></div>
+<div class="card"><h3>📊 Monitorización en tiempo real</h3><p>Consulta desde el móvil, a través de la aplicación, lo que pasa en tu casa o negocio en el momento: temperatura, humedad, movimiento, estado de puertas y cámaras.</p><ul class="list"><li>Paneles personalizados con gráficas e histórico</li><li>Alertas y notificaciones al móvil</li><li>Acceso remoto seguro</li></ul></div>
+<div class="card"><h3>📡 Sensores a medida</h3><p>Estaciones meteorológicas, control de temperatura y humedad, detección de presencia y otros sensores integrados en tu sistema.</p></div>
+<div class="card"><h3>🖨️ Impresión 3D a medida</h3><p>Carcasas, soportes y piezas personalizadas para proteger y dar buen acabado a cada dispositivo.</p></div>
+<div class="card"><h3>🧩 Asesoramiento y proyectos</h3><p>Te ayudamos a elegir qué placa, sensor o pantalla encaja con lo que quieres hacer, o a diseñar un proyecto desde cero.</p></div>
+</div>
+<h2 id="tecnologia">Tecnología con la que trabajamos</h2>
+<p class="sub">Componentes fiables y abiertos. Las ilustraciones son orientativas; los modelos exactos dependen de cada proyecto.</p>
+<div class="grid">
+<div class="card part"><div class="pic"><svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect x="70" y="14" width="60" height="78" rx="6" fill="#2563eb"/><path d="M80 29h44M80 39h44M80 49h44M80 59h44" stroke="#93c5fd" stroke-width="5" stroke-dasharray="8 4"/><path d="M84 92v30M96 92v30M108 92v30M120 92v30" stroke="#cbd5e1" stroke-width="4"/></svg></div><h3>Sensores DHT11 y DHT22</h3><p>Temperatura y humedad. El DHT11 es básico (±2 °C, humedad 20–80 %), el DHT22 es más preciso (±0,5 °C, humedad 0–100 %).</p></div>
+<div class="card part"><div class="pic"><svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect x="40" y="35" width="120" height="75" rx="6" fill="#15803d"/><circle cx="100" cy="55" r="34" fill="#f1f5f9"/><circle cx="100" cy="55" r="22" fill="#e2e8f0" stroke="#94a3b8"/><path d="M72 110v10M97 110v10M122 110v10" stroke="#fbbf24" stroke-width="5"/></svg></div><h3>Sensores de movimiento PIR</h3><p>Detectan presencia por infrarrojos. Sirven para alarmas, luces automáticas y para activar cámaras solo cuando hace falta.</p></div>
+<div class="card part"><div class="pic"><svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect x="15" y="20" width="170" height="90" rx="8" fill="#1d4ed8"/><rect x="60" y="40" width="40" height="40" rx="3" fill="#0f172a"/><rect x="125" y="35" width="45" height="20" rx="3" fill="#94a3b8"/><rect x="125" y="75" width="35" height="22" rx="3" fill="#cbd5e1"/><path d="M25 16h100M25 114h100" stroke="#fbbf24" stroke-width="12" stroke-dasharray="5 5"/></svg></div><h3>Placas Wemos D1 con WiFi</h3><p>Placas con formato tipo Arduino y WiFi integrado, cómodas para prototipos, relés y controles de la casa.</p></div>
+<div class="card part"><div class="pic"><svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect x="40" y="15" width="120" height="100" rx="8" fill="#0f172a" stroke="#38bdf8"/><circle cx="100" cy="52" r="28" fill="#1e293b" stroke="#64748b" stroke-width="4"/><circle cx="100" cy="52" r="14" fill="#38bdf8"/><circle cx="106" cy="46" r="4" fill="#e0f2fe"/><rect x="62" y="90" width="76" height="14" rx="3" fill="#334155"/></svg></div><h3>ESP32-CAM</h3><p>Cámara con WiFi para vídeo, imágenes fijas y vigilancia doméstica básica integrada en Home Assistant.</p></div>
+<div class="card part"><div class="pic"><svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect x="55" y="12" width="90" height="106" rx="8" fill="#0f766e"/><rect x="72" y="40" width="56" height="44" rx="3" fill="#0f172a"/><path d="M65 20h70v12H65z" fill="#fbbf24" opacity=".7"/><rect x="88" y="94" width="24" height="16" rx="3" fill="#cbd5e1"/><path d="M60 40v48M140 40v48" stroke="#fbbf24" stroke-width="5" stroke-dasharray="6 6"/></svg></div><h3>ESP32-C6</h3><p>Placa moderna con WiFi 6, Bluetooth 5 y radio 802.15.4 para Thread y Zigbee, pensada para dispositivos compatibles con Matter.</p></div>
+<div class="card part"><div class="pic"><svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect x="35" y="35" width="130" height="60" rx="6" fill="#111827" stroke="#475569"/><rect x="45" y="45" width="110" height="40" fill="#000"/><text x="52" y="62" font-size="12" fill="#38bdf8" font-family="monospace">TEMP 23.5C</text><text x="52" y="78" font-size="12" fill="#38bdf8" font-family="monospace">HUM  48%</text><path d="M72 100v12M90 100v12M108 100v12M126 100v12" stroke="#fbbf24" stroke-width="5"/></svg></div><h3>Pantalla OLED 0,92"</h3><p>Pantalla pequeña de bajo consumo para mostrar temperatura, humedad, estado de red o alertas.</p></div>
+<div class="card part"><div class="pic"><svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect x="20" y="10" width="160" height="110" rx="8" fill="#111827" stroke="#475569"/><rect x="30" y="20" width="140" height="90" fill="#0b1220"/><rect x="38" y="28" width="56" height="30" rx="5" fill="#0ea5e9"/><rect x="104" y="28" width="56" height="30" rx="5" fill="#22c55e"/><rect x="38" y="68" width="122" height="32" rx="5" fill="#334155"/><circle cx="128" cy="84" r="9" fill="#f1f5f9" opacity=".8"/><text x="45" y="88" font-size="11" fill="#e2e8f0" font-family="sans-serif">Toca para controlar</text></svg></div><h3>Pantalla táctil 3,5"</h3><p>Panel táctil de color para mandos de pared, paneles de control y visualización de datos en tiempo real.</p></div>
 </div>
 <h2>Cómo trabajamos</h2>
 <ol class="steps">
@@ -45,18 +90,11 @@ a{color:var(--acc)}
 </ol>
 <h2 id="proyectos">Proyectos</h2>
 <div class="grid">
-<div class="card"><h3>Estación meteo con OLED</h3><p>NodeMCU, sensor DHT11 y pantalla con temperatura, humedad y estado del WiFi.</p></div>
+<div class="card"><h3>Estación meteo con OLED</h3><p>NodeMCU, sensor DHT11 y pantalla OLED con temperatura, humedad y estado del WiFi.</p></div>
 <div class="card"><h3>Cámaras ESP32-CAM</h3><p>Streaming y captura de imagen integrados en Home Assistant.</p></div>
 <div class="card"><h3>Sensor para oficina</h3><p>Temperatura y humedad con histórico y gráficas.</p></div>
 </div>
 <p style="text-align:center;margin-top:26px"><a class="btn alt" href="https://github.com/icemancoin/domotica_homeassistant_sensoresydispositivos">Ver el código en GitHub</a></p>
-<h2>Por qué elegirnos</h2>
-<div class="grid">
-<div class="card"><h3>Tecnología abierta</h3><p>ESPHome y Home Assistant, sin depender de nubes de terceros.</p></div>
-<div class="card"><h3>Privacidad</h3><p>Tus datos se quedan en tu casa.</p></div>
-<div class="card"><h3>Trato directo</h3><p>Hablas con quien monta tu instalación.</p></div>
-<div class="card"><h3>A tu medida</h3><p>Presupuesto personalizado para cada proyecto.</p></div>
-</div>
 <h2 id="contacto">Contacto</h2>
 <div class="contact">
 <p><strong>¿Hablamos?</strong><br>Para información sobre precios, pedidos y presupuesto, contacta con nosotros:</p>
