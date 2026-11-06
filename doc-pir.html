@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sensor PIR HC-SR501: especificaciones y conexión | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica del sensor de movimiento PIR HC-SR501: alimentación, alcance, ángulo, ajustes de sensibilidad y retardo, y conexión con ESP32 y Arduino.">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<nav><div class="wrap"><a class="brandlink" href="index.html"><b>Tarraco Domo</b></a><div><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a><a href="tecnologia.html">Tecnología</a><a href="programacion.html">Programación</a><a href="proyectos.html">Proyectos</a><a class="act" href="documentacion.html">Documentación</a><a href="contacto.html">Contacto</a></div></div></nav>
+<header class="hero mini"><div class="wrap"><a href="index.html"><img class="banner" src="image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona"></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap">
+<h1 class="pt">Sensor PIR HC-SR501</h1>
+<p class="sub">Sensor de movimiento por infrarrojos pasivo, el más usado en alarmas y luces automáticas.</p>
+<div class="doc">
+<h2>Especificaciones técnicas</h2>
+<table class="spec">
+<tr><th>Alimentación</th><td>4,5 a 20 V (se recomienda 5 V)</td></tr>
+<tr><th>Salida</th><td>Digital de 3,3 V (alta al detectar, baja en reposo)</td></tr>
+<tr><th>Alcance</th><td>3 a 7 metros, ajustable</td></tr>
+<tr><th>Ángulo de detección</th><td>Entre 110 y 120 grados</td></tr>
+<tr><th>Retardo de salida</th><td>Ajustable, desde pocos segundos hasta unos 5 minutos (según el módulo)</td></tr>
+<tr><th>Consumo en reposo</th><td>Unos 65 µA</td></tr>
+<tr><th>Pines</th><td>VCC, OUT y GND</td></tr>
+</table>
+<h2>Ajustes del módulo</h2>
+<ul class="list">
+<li><strong>Sensibilidad:</strong> un potenciómetro regula la distancia de detección.</li>
+<li><strong>Retardo:</strong> otro potenciómetro fija cuánto tiempo se mantiene activa la salida tras detectar movimiento.</li>
+<li><strong>Modo de disparo:</strong> un puente permite elegir entre repetir la detección mientras haya movimiento o disparar una sola vez.</li>
+</ul>
+<h2>Cómo se conecta</h2>
+<p>Alimenta el módulo a 5 V y conecta OUT a un pin digital. La salida es de 3,3 V, así que se puede leer directamente con un ESP32, un ESP8266 o un Arduino.</p>
+<ul class="list">
+<li><strong>VCC:</strong> a 5 V.</li>
+<li><strong>OUT:</strong> a un pin digital de entrada.</li>
+<li><strong>GND:</strong> a masa.</li>
+</ul>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Luces que se encienden al detectar presencia</li>
+<li>Alarmas y avisos al móvil</li>
+<li>Activar una <a href="doc-esp32-cam.html">ESP32-CAM</a> para hacer una foto al detectar movimiento</li>
+<li>Sensor de presencia en Home Assistant con ESPHome</li>
+</ul>
+<h2>Qué tener en cuenta</h2>
+<ul class="list">
+<li>Al encenderlo necesita alrededor de un minuto para estabilizarse y puede dar falsas detecciones durante ese tiempo.</li>
+<li>No lo coloques frente a ventanas soleadas, radiadores o salidas de aire, porque los cambios de calor pueden activarlo.</li>
+<li>Detecta cambios de calor en movimiento, no personas concretas, y no ve a través de cristal.</li>
+<li>Si se usa junto a una cámara, respeta la normativa de privacidad.</li>
+</ul>
+<p class="note">Fuentes: <a href="https://components101.com/sensors/hc-sr501-pir-sensor" target="_blank" rel="noopener noreferrer">Components101</a>, <a href="https://shillehtek.com/blogs/shillehtek-product-manuals/hc-sr501-pir-motion-sensor" target="_blank" rel="noopener noreferrer">ShillehTek</a> y <a href="https://www.tinkered.ai/components/pir-hc-sr501" target="_blank" rel="noopener noreferrer">Tinkered</a>. Los datos son orientativos y varían entre fabricantes.</p>
+<p class="back"><a href="documentacion.html">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Política de privacidad</a> · <a href="cookies.html">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a><br><div class="dev" style="margin:18px 0 0">Web en desarrollo</div></footer>
+</body></html>
