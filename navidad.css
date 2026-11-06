@@ -1,0 +1,9 @@
+/* NAVIDAD - para quitarla: borra la linea @import de la primera linea de styles.css (o este archivo) */
+nav::after{content:"";position:absolute;left:0;right:0;top:100%;height:16px;z-index:1;pointer-events:none;background-image:radial-gradient(circle at 12px 8px,#ef4444 0 4px,transparent 5.5px),radial-gradient(circle at 36px 8px,#fbbf24 0 4px,transparent 5.5px),radial-gradient(circle at 60px 8px,#22c55e 0 4px,transparent 5.5px),radial-gradient(circle at 84px 8px,#38bdf8 0 4px,transparent 5.5px),linear-gradient(#475569,#475569);background-size:96px 16px,96px 16px,96px 16px,96px 16px,100% 2px;background-repeat:repeat-x,repeat-x,repeat-x,repeat-x,no-repeat;background-position:0 0;animation:titila 2.4s ease-in-out infinite}
+nav .wrap>div{z-index:3}
+@keyframes titila{0%,100%{opacity:1}50%{opacity:.5}}
+body::before{content:"";position:fixed;top:-200px;left:0;right:0;bottom:0;z-index:15;pointer-events:none;opacity:.75;background-image:radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(2px 2px at 40px 70px,#fff,transparent),radial-gradient(3px 3px at 90px 40px,#fff,transparent),radial-gradient(2px 2px at 130px 80px,#fff,transparent),radial-gradient(3px 3px at 160px 120px,#fff,transparent),radial-gradient(2px 2px at 60px 150px,#fff,transparent),radial-gradient(2px 2px at 180px 180px,#fff,transparent);background-size:200px 200px;animation:nieve 12s linear infinite}
+@keyframes nieve{to{transform:translateY(200px)}}
+nav b::after,.brand::after{content:" 🎄"}
+footer::before{content:"🎄 ¡Felices fiestas! 🎁";display:block;margin-bottom:12px;font-size:1.15rem;font-weight:700;color:#fbbf24}
+@media(prefers-reduced-motion:reduce){nav::after,body::before{animation:none}}
