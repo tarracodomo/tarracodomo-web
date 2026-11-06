@@ -1,0 +1,33 @@
+name: Desactivar tema navideno
+
+on:
+  schedule:
+    - cron: '0 6 8 1 *'
+
+permissions:
+  contents: write
+
+jobs:
+  desactivar:
+    if: github.event.schedule == '0 6 8 1 *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Desactivar Navidad solo en 2027
+        run: |
+          if [ "$(date -u +%Y)" != "2027" ]; then
+            echo "No es 2027; no se cambia nada"
+            exit 0
+          fi
+          if ! grep -qFx '@import url("navidad.css");' styles.css; then
+            echo "El tema navideno ya esta desactivado"
+            exit 0
+          fi
+          sed -i '/^@import url("navidad\.css");$/d' styles.css
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add styles.css
+          git commit -m "Desactiva el tema navideno (programado 8 de enero)"
+          git push
