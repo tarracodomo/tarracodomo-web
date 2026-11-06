@@ -1,0 +1,60 @@
+name: Completar menus Meshtastic
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/completar-menu-meshtastic.yml']
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  completar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Actualizar exclusivamente los menus
+        run: |
+          python3 - <<'PY'
+          import re
+          import subprocess
+          from pathlib import Path
+          pending = []
+          for name in subprocess.check_output(['git', 'ls-files', '-z'], text=True).split('\0'):
+              if not name.endswith('.html'):
+                  continue
+              p = Path(name)
+              if p.is_symlink():
+                  continue
+              raw = p.read_bytes()
+              text = raw.decode('utf-8')
+              def update(match):
+                  nav = match.group(0)
+                  if re.search(r'href=[\"\']meshtastic\.html[\"\']', nav):
+                      return nav
+                  target = re.search(r'<a\b[^>]*\bhref=[\"\']contacto\.html[\"\'][^>]*>', nav)
+                  if not target:
+                      raise RuntimeError('Menu sin enlace Contacto: ' + name)
+                  active = ' class="act"' if p.name == 'meshtastic.html' else ''
+                  link = '<a' + active + ' href="meshtastic.html">Meshtastic</a>'
+                  return nav[:target.start()] + link + nav[target.start():]
+              result = re.sub(r'<nav\b[^>]*>.*?</nav\s*>', update, text, flags=re.S | re.I)
+              if result != text:
+                  pending.append((p, result.encode('utf-8')))
+          for p, content in pending:
+              p.write_bytes(content)
+              subprocess.run(['git', 'add', '--', str(p)], check=True)
+              print('Actualizado:', p)
+          print('Total:', len(pending))
+          PY
+          if git diff --cached --quiet; then
+            echo "Todos los menus ya estaban actualizados"
+            exit 0
+          fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git commit -m "Completa Meshtastic en todos los menus HTML"
+          git push origin HEAD:main
