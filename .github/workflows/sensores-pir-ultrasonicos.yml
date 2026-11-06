@@ -1,0 +1,43 @@
+name: Sensores PIR y ultrasonicos
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/sensores-pir-ultrasonicos.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Ampliar tarjeta y conservar orden alfabetico
+        run: |
+          python3 - <<'PY'
+          import re, unicodedata
+          from pathlib import Path
+          p = Path('tecnologia.html')
+          original = p.read_bytes().decode('utf-8')
+          old = '<h3>Sensores de movimiento PIR</h3><p>Detectan presencia por infrarrojos. Sirven para alarmas, luces automáticas y para activar cámaras solo cuando hace falta.</p>'
+          new = '<h3>Sensores PIR y ultrasónicos</h3><p>Los sensores PIR detectan movimiento por cambios en la radiación infrarroja. Los ultrasónicos, como el HC-SR04, miden distancia mediante el eco de pulsos de sonido. Se eligen según el uso: avisos de movimiento, luces automáticas, proximidad o medición de nivel.</p>'
+          if original.count(old) != 1:
+              raise RuntimeError('La tarjeta ha cambiado; revisar antes de escribir')
+          result = original.replace(old, new, 1)
+          groups = list(re.finditer(r'(?:^<div class="card part">[^\n]*\n)+',result,re.M))
+          if [len(m[0].splitlines()) for m in groups] != [12,3]:
+              raise RuntimeError('Grupos de tarjetas inesperados')
+          def key(line):
+              title = re.search(r'<h3>(.*?)</h3>',line)[1]
+              return ''.join(c for c in unicodedata.normalize('NFD',title.casefold()) if not unicodedata.combining(c))
+          for m in reversed(groups):
+              cards = m[0].splitlines(keepends=True)
+              result = result[:m.start()] + ''.join(sorted(cards,key=key)) + result[m.end():]
+          p.write_bytes(result.encode('utf-8'))
+          PY
+          git add -- tecnologia.html
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git commit -m "Tecnologia: sensores PIR y ultrasonicos en orden alfabetico"
+          git push origin HEAD:main
