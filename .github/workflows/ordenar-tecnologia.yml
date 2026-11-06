@@ -1,0 +1,50 @@
+name: Ordenar tarjetas de Tecnologia
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/ordenar-tecnologia.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  ordenar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Ordenar y validar los dos grupos
+        run: |
+          python3 - <<'PY'
+          import re, subprocess, unicodedata
+          from pathlib import Path
+          p = Path('tecnologia.html')
+          expected = 'c46f0a16dfc5157b763b086a0c7aeb04a2f0b3c8'
+          actual = subprocess.check_output(['git','hash-object',str(p)], text=True).strip()
+          if actual != expected:
+              raise RuntimeError('Tecnologia ha cambiado; revisar antes de escribir')
+          original = p.read_bytes().decode('utf-8')
+          pattern = r'(?:^<div class="card part">[^\n]*\n)+'
+          groups = list(re.finditer(pattern, original, re.M))
+          if [len(m[0].splitlines()) for m in groups] != [12,3]:
+              raise RuntimeError('Se esperaban grupos de 12 y 3 tarjetas')
+          def key(line):
+              title = re.search(r'<h3>(.*?)</h3>', line)[1]
+              return ''.join(c for c in unicodedata.normalize('NFD',title.casefold()) if not unicodedata.combining(c))
+          result = original
+          for m in reversed(groups):
+              cards = m[0].splitlines(keepends=True)
+              ordered = sorted(cards,key=key)
+              if sorted(cards) != sorted(ordered):
+                  raise RuntimeError('No se conservan las tarjetas')
+              print('Orden:', [re.search(r'<h3>(.*?)</h3>',c)[1] for c in ordered])
+              result = result[:m.start()] + ''.join(ordered) + result[m.end():]
+          if result == original:
+              raise RuntimeError('No hay cambios pendientes')
+          p.write_bytes(result.encode('utf-8'))
+          PY
+          git add -- tecnologia.html
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git commit -m "Ordena alfabeticamente las tarjetas de Tecnologia"
+          git push origin HEAD:main
