@@ -1,0 +1,70 @@
+name: Corregir orden de tarjetas
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/corregir-orden-tarjetas.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  corregir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Limitar ordenacion y restaurar menus
+        run: |
+          python3 - <<'PY'
+          import re, subprocess, textwrap
+          from pathlib import Path
+          task = Path('.github/workflows/orden-alfabetico-web.yml')
+          source = task.read_text()
+          old = 'group = cards if len(cards) > 1 else links if in_nav and len(links) > 1 else []'
+          if old not in source:
+              raise RuntimeError('La tarea ha cambiado; revisar antes de aplicar')
+          source = source.replace(old, 'group = cards if len(cards) > 1 else []')
+          source = source.replace('def offset(self):', 'def position(self):').replace('self.offset()', 'self.position()')
+          source = source.replace('Ordena alfabeticamente menus y grupos de tarjetas', 'Ordena alfabeticamente solo grupos de tarjetas')
+          code = textwrap.dedent(source.split("python3 - <<'PY'\n", 1)[1].split('\n          PY', 1)[0])
+          compile(code, '<ordenar-tarjetas>', 'exec')
+          exec(code, {'__name__': '__main__'})
+          order = ['index.html','nosotros.html','servicios.html','tecnologia.html','programacion.html','proyectos.html','meshtastic.html','documentacion.html','contacto.html']
+          pending = []
+          for name in subprocess.check_output(['git','ls-files','-z'], text=True).split('\0'):
+              p = Path(name)
+              if not name.endswith('.html') or p.is_symlink():
+                  continue
+              original = p.read_bytes().decode('utf-8')
+              def restore(m):
+                  nav = m[0]
+                  matches = list(re.finditer(r'<a\b[^>]*>.*?</a>', nav, re.S))
+                  links = [a for a in matches if 'brandlink' not in a[0]]
+                  if not links:
+                      return nav
+                  mapping = {}
+                  for a in links:
+                      href = re.search(r'href="([^"]+)"', a[0])
+                      if not href or href[1] not in order or href[1] in mapping:
+                          raise RuntimeError('Menu inesperado: ' + name)
+                      mapping[href[1]] = a[0]
+                  if set(mapping) != set(order):
+                      raise RuntimeError('Menu incompleto: ' + name)
+                  block = nav[links[0].start():links[-1].end()]
+                  if re.sub(r'<a\b[^>]*>.*?</a>', '', block, flags=re.S).strip():
+                      raise RuntimeError('Contenido adicional en menu: ' + name)
+                  return nav[:links[0].start()] + ''.join(mapping[k] for k in order) + nav[links[-1].end():]
+              result = re.sub(r'<nav\b[^>]*>.*?</nav>', restore, original, flags=re.S)
+              if result != original:
+                  pending.append((p, result.encode('utf-8')))
+          task.write_text(source)
+          subprocess.run(['git','add','--',str(task)], check=True)
+          for p,data in pending:
+              p.write_bytes(data)
+              subprocess.run(['git','add','--',str(p)], check=True)
+          PY
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git commit -m "Conserva menu anterior y ordena solo tarjetas"
+          git push origin HEAD:main
