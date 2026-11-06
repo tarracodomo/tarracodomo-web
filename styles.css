@@ -85,3 +85,7 @@ table.spec th{width:40%}
 .btn{padding:12px 20px}
 .dev{letter-spacing:.08em;font-size:.78rem}
 }
+#telegram+.sub+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+#telegram+.sub+.grid>.card{flex:0 1 calc((100% - 40px)/3);min-width:0}
+@media(max-width:900px){#telegram+.sub+.grid>.card{flex-basis:calc((100% - 20px)/2)}}
+@media(max-width:600px){#telegram+.sub+.grid>.card{flex-basis:100%}}
