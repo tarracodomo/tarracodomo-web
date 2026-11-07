@@ -1,0 +1,40 @@
+INFORME DE CORRECCIONES - 2026-11-07
+
+ESTADO: VALIDACION OK
+
+BANNER
+  original: 1672x940 px, 1721349 bytes
+  PNG nuevo: 1200x675 px, 821534 bytes
+  WebP: 1200x675 px, 55262 bytes
+  ahorro PNG: 52%
+
+FAVICON: creado (10528 bytes)
+PAGINAS MODIFICADAS: 25
+  - 404.html
+  - aviso-legal.html
+  - contacto.html
+  - cookies.html
+  - doc-arduino-uno.html
+  - doc-dht.html
+  - doc-esp32-c6.html
+  - doc-esp32-cam.html
+  - doc-esp32.html
+  - doc-esp8266.html
+  - doc-hc-sr04.html
+  - doc-pantallas-tactiles.html
+  - doc-pir.html
+  - doc-reles.html
+  - doc-wemos-d1-r32.html
+  - doc-wemos-d1.html
+  - documentacion.html
+  - index.html
+  - meshtastic.html
+  - nosotros.html
+  - privacidad.html
+  - programacion.html
+  - proyectos.html
+  - servicios.html
+  - tecnologia.html
+
+ERRORES:
+  ninguno

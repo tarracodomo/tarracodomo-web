@@ -1,0 +1,9 @@
+.site-nav{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.97);border-bottom:1px solid #334155;line-height:1.65}
+.site-nav .wrap{position:relative;max-width:1100px;margin:0 auto;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:8px 14px}
+.site-nav a{color:var(--txt);text-decoration:none;font-size:.95rem}
+.site-nav a:hover{color:var(--acc)}
+.site-nav b{color:var(--acc)}
+.site-nav a.brandlink{margin-left:0}
+.site-nav .site-links{display:flex;flex-wrap:wrap;gap:4px 14px;margin-left:auto}
+.site-nav .site-email{margin-left:14px}
+@media(max-width:760px){.site-nav .site-links,.site-nav .site-email{display:none}}
