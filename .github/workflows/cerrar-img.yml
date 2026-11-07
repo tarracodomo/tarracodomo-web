@@ -1,0 +1,42 @@
+name: Cerrar img del banner
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/cerrar-img.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  cerrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Cerrar etiquetas y devolver og:image
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          n = 0
+          files = []
+          for f in sorted(Path('.').glob('*.html')):
+              t = f.read_text(encoding='utf-8')
+              t2 = re.sub(r'(<img\b[^<>]*)(</picture>)', r'\1>\2', t)
+              t2 = t2.replace('content="https://tarracodomo.com/tarraco-domo.webp"', 'content="https://tarracodomo.com/image-3.png"')
+              if t2 != t:
+                  f.write_text(t2, encoding='utf-8')
+                  n += 1
+                  files.append(f.name)
+          Path('.github').mkdir(exist_ok=True)
+          Path('.github/informe-cierre.txt').write_text(
+              'Cierre de etiquetas img\n\nPaginas corregidas: ' + str(n) + '\n' + '\n'.join('  - ' + x for x in files) + '\n',
+              encoding='utf-8')
+          print('corregidas:', n)
+          PY
+          grep -c '<img' index.html || true
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit --allow-empty -m "Cierra las etiquetas img del banner y devuelve og:image al PNG"
+          git push
