@@ -12,6 +12,10 @@ MAPA = {
     "doc-esp32-cam": ("esp32-cam.webp", "Placa ESP32-CAM con c\u00e1mara OV2640 y ranura para tarjeta microSD"),
     "doc-esp32": ("esp32-devkit.webp", "Placa de desarrollo ESP32 DevKit con m\u00f3dulo WROOM-32"),
     "doc-hc-sr04": ("sensor-ultrasonidos.webp", "M\u00f3dulo de sensor de distancia por ultrasonidos HC-SR04"),
+    "doc-esp8266": ("esp8266.webp", "M\u00f3dulo ESP8266 en placa de desarrollo con antena WiFi"),
+    "doc-wemos-d1": ("wemos-d1-mini.webp", "Placa WeMos D1 Mini basada en ESP8266"),
+    "doc-wemos-d1-r32": ("esp32-dev-board.webp", "Placa ESP32 en formato Wemos D1 R32"),
+    "doc-dht": ("dht11.webp", "Sensor de temperatura y humedad DHT11 conectado a un ESP8266"),
 }
 
 PATRON = re.compile(

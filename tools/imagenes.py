@@ -21,6 +21,10 @@ IMAGENES = [
     ("BMP280Sensor.jpg", "bmp280.webp", "M\u00f3dulo sensor de presi\u00f3n y temperatura BMP280"),
     ("Capteur-ultrasons.jpg", "sensor-ultrasonidos.webp", "M\u00f3dulo de sensor de distancia por ultrasonidos"),
     ("Leaf Sensor.jpg", "sensor-hoja.webp", "Sensor de humedad de hoja para plantas"),
+    ("Esp8266.jpg", "esp8266.webp", "M\u00f3dulo ESP8266 en placa de desarrollo con antena WiFi"),
+    ("WeMos D1 Mini front.jpg", "wemos-d1-mini.webp", "Placa WeMos D1 Mini basada en ESP8266"),
+    ("ESP8266 with DHT11.jpg", "dht11.webp", "Sensor de temperatura y humedad DHT11 conectado a un ESP8266"),
+    ("Maxdetect Humidity and Temperature Sensor - RHT03 10167.jpg", "dht22.webp", "Sensor de temperatura y humedad DHT22, tambi\u00e9n llamado RHT03"),
 ]
 
 
@@ -41,7 +45,7 @@ def main():
             imagen = Image.open(io.BytesIO(datos)).convert("RGB")
             imagen.thumbnail((ANCHO, 1600), Image.LANCZOS)
             ruta = destino / salida
-            imagen.save(ruta, "WEBP", quality=82, method=6)
+            imagen.save(ruta, "WEBP", quality=80, method=6)
             filas.append((salida, origen, imagen.width, imagen.height, ruta.stat().st_size, alt))
         except Exception as error:
             filas.append((salida, origen, 0, 0, 0, f"ERROR: {error}"))
