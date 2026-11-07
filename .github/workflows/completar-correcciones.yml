@@ -13,16 +13,21 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Aplicar y validar
+      - name: Aplicar cambios y medir
         run: |
           python3 -m pip install --quiet pillow
           python3 - <<'PY'
-          import re, sys
+          import re
           from pathlib import Path
           from PIL import Image, ImageDraw
 
           base = 'https://tarracodomo.com'
           legal = {'aviso-legal.html', 'privacidad.html', 'cookies.html'}
+          before = {p.name: p.stat().st_size for p in Path('.').glob('*.png')}
+          before.update({p.name: p.stat().st_size for p in Path('.').glob('*.jpg')})
+          ow, oh = Image.open('image-3.png').size
+          target = 1200
+
           nav = re.search(r'<nav\b.*?</nav>', Path('index.html').read_text(encoding='utf-8'), re.S).group(0).replace(' class="act"', '')
 
           Path('legal-nav.css').write_text(
@@ -37,9 +42,12 @@ jobs:
               '@media(max-width:760px){.site-nav .site-links,.site-nav .site-email{display:none}}\n',
               encoding='utf-8')
 
-          width, height = Image.open('image-3.png').size
-          if not Path('tarraco-domo.webp').exists():
-              Image.open('image-3.png').save('tarraco-domo.webp', 'WEBP', quality=90, method=6)
+          im = Image.open('image-3.png').convert('RGB')
+          if im.width > target:
+              im = im.resize((target, round(im.height * target / im.width)), Image.LANCZOS)
+          im.save('image-3.png', 'PNG', optimize=True)
+          im.save('tarraco-domo.webp', 'WEBP', quality=85, method=6)
+          nw, nh = Image.open('image-3.png').size
 
           if not Path('favicon.ico').exists():
               s, k = 256, 4.0
@@ -59,7 +67,7 @@ jobs:
                   return f'{attr}={q}/{val}{q}'
               return m.group(0)
 
-          n = 0
+          changed = []
           for f in sorted(Path('.').glob('*.html')):
               t0 = f.read_text(encoding='utf-8')
               t = t0
@@ -76,12 +84,13 @@ jobs:
                   def pic(m):
                       tag = '<img' + m.group(1) + 'src="/image-3.png"' + m.group(2)
                       if 'width=' not in tag:
-                          tag += f' width="{width}" height="{height}"'
+                          tag += f' width="{nw}" height="{nh}"'
                       return '<picture><source srcset="/tarraco-domo.webp" type="image/webp">' + tag + '</picture>'
                   t = re.sub(r'<img([^>]*?)src="/image-3\.png"([^>]*)>', pic, t)
+              t = t.replace('content="https://tarracodomo.com/image-3.png"', 'content="https://tarracodomo.com/tarraco-domo.webp"')
               if t != t0:
                   f.write_text(t, encoding='utf-8')
-                  n += 1
+                  changed.append(f.name)
 
           sm = Path('sitemap.xml')
           s = sm.read_text(encoding='utf-8')
@@ -95,25 +104,49 @@ jobs:
           for f in sorted(Path('.').glob('*.html')):
               t = f.read_text(encoding='utf-8')
               if '</html>' not in t:
-                  bad.append(f.name + ': sin cierre')
+                  bad.append(f.name + ': sin cierre html')
               if re.search(r'href="/(?!/)[a-z0-9-]+\.html"', t):
                   bad.append(f.name + ': quedan enlaces .html')
               if f.name != '404.html' and 'rel="canonical"' not in t:
                   bad.append(f.name + ': sin canonical')
               for src in re.findall(r'(?:href|src)="(/[^"#?]+)', t):
-                  if not Path(src.lstrip('/')).exists():
-                      bad.append(f.name + ': falta ' + src)
-          print('paginas modificadas:', n)
-          if bad:
-              print('VALIDACION FALLIDA:')
-              for b in sorted(set(bad)):
-                  print(' -', b)
-              sys.exit(1)
-          print('VALIDACION OK')
+                  p = Path(src.lstrip('/'))
+                  if not (p.is_file() or p.with_suffix('.html').is_file()):
+                      bad.append(f.name + ': referencia rota ' + src)
+
+          after = {'image-3.png': Path('image-3.png').stat().st_size, 'tarraco-domo.webp': Path('tarraco-domo.webp').stat().st_size}
+          ok = not bad
+          lines = [
+              'INFORME DE CORRECCIONES - ' + '2026-11-07',
+              '',
+              'ESTADO: ' + ('VALIDACION OK' if ok else 'VALIDACION FALLIDA'),
+              '',
+              'BANNER',
+              f'  original: {ow}x{oh} px, {before.get("image-3.png", 0)} bytes',
+              f'  PNG nuevo: {nw}x{nh} px, {after["image-3.png"]} bytes',
+              f'  WebP: {nw}x{nh} px, {after["tarraco-domo.webp"]} bytes',
+              f'  ahorro PNG: {100 - round(after["image-3.png"] * 100 / max(before.get("image-3.png", 1), 1))}%',
+              '',
+              'FAVICON: ' + ('creado' if Path('favicon.ico').exists() else 'no creado') + f' ({Path("favicon.ico").stat().st_size if Path("favicon.ico").exists() else 0} bytes)',
+              'PAGINAS MODIFICADAS: ' + str(len(changed)),
+            ] + ['  - ' + c for c in changed] + ['', 'ERRORES:'] + (['  - ' + b for b in sorted(set(bad))] if bad else ['  ninguno'])
+          Path('.github').mkdir(exist_ok=True)
+          Path('.github/informe-correcciones.txt').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          Path('.github/.resultado').write_text('OK' if ok else 'FALLA', encoding='utf-8')
+          print('\n'.join(lines))
           PY
-          if [ -z "$(git status --porcelain)" ]; then echo "sin cambios"; exit 0; fi
+      - name: Guardar resultado
+        run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
+          if [ "$(cat .github/.resultado)" != "OK" ]; then
+            git add .github/informe-correcciones.txt
+            git commit -m "Informe de correcciones: validacion fallida, sin cambios en la web"
+            git push
+            echo "La validacion fallo: no se han aplicado cambios. Revisa .github/informe-correcciones.txt"
+            exit 1
+          fi
+          rm -f .github/.resultado
           git add -A
-          git commit -m "Web: favicon.ico, banner WebP, cabecera legal, canonical, sitemap y enlaces limpios"
+          git commit -m "Web: banner a 1200 px en PNG y WebP, favicon.ico, cabecera legal, canonical, sitemap y enlaces limpios"
           git push
