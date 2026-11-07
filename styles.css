@@ -92,3 +92,10 @@ table.spec th{width:40%}
 #alcance+.sub+.grid+.sub{font-size:1.45rem;line-height:1.5;color:var(--txt);max-width:760px}
 #alcance+.sub+.grid+.sub strong{color:var(--acc)}
 @media(max-width:600px){#alcance+.sub+.grid+.sub{font-size:1.2rem}}
+.ficha{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap;margin:0 0 26px}
+.ficha figure{flex:0 0 300px;max-width:300px;margin:0}
+.ficha figure img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid #334155;background:#0b1220}
+.ficha figcaption{font-size:.8rem;color:var(--mut);margin-top:8px}
+.ficha .datos{flex:1 1 320px;min-width:260px}
+.ficha .datos h2{margin-top:0}
+@media(max-width:700px){.ficha figure{flex:1 1 100%;max-width:100%}}

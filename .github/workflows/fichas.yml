@@ -1,0 +1,41 @@
+name: Fichas con foto
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/fichas.py"
+      - ".github/workflows/fichas.yml"
+      - "styles.css"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fichas
+  cancel-in-progress: true
+
+jobs:
+  maquetar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar Pillow
+        run: pip install --quiet pillow
+      - name: Aplicar maquetacion
+        run: python tools/fichas.py
+      - name: Guardar cambios
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Sin cambios"
+            exit 0
+          fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Fichas: foto y especificaciones en dos columnas"
+          git push
