@@ -1,43 +1,41 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>ESP8266: especificaciones y aplicaciones | Tarraco Domo</title>
-<meta name="description" content="Ficha técnica del ESP8266EX: procesador de 32 bits hasta 160 MHz, WiFi 802.11 b/g/n y 17 pines GPIO. Aplicaciones de domótica y consideraciones.">
-<link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/cabecera.css">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://tarracodomo.com/doc-esp8266">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<meta name="theme-color" content="#ffffff">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Tarraco Domo">
-<meta property="og:locale" content="es_ES">
-<meta property="og:url" content="https://tarracodomo.com/doc-esp8266">
-<meta property="og:title" content="ESP8266: especificaciones y aplicaciones | Tarraco Domo">
-<meta property="og:description" content="Ficha técnica del ESP8266EX: procesador de 32 bits hasta 160 MHz, WiFi 802.11 b/g/n y 17 pines GPIO. Aplicaciones de domótica y consideraciones.">
-<meta property="og:image" content="https://tarracodomo.com/image-3.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="675">
-<meta property="og:image:alt" content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@tarracodomo">
-<meta name="twitter:title" content="ESP8266: especificaciones y aplicaciones | Tarraco Domo">
-<meta name="twitter:description" content="Ficha técnica del ESP8266EX: procesador de 32 bits hasta 160 MHz, WiFi 802.11 b/g/n y 17 pines GPIO. Aplicaciones de domótica y consideraciones.">
-<meta name="twitter:image" content="https://tarracodomo.com/image-3.png">
+<meta content="Ficha técnica del ESP8266EX: procesador de 32 bits hasta 160 MHz, WiFi 802.11 b/g/n y 17 pines GPIO. Aplicaciones de domótica y consideraciones." name="description"/>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/cabecera.css" rel="stylesheet"/>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://tarracodomo.com/doc-esp8266" rel="canonical"/>
+<link href="/favicon.ico" rel="icon" sizes="32x32"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta content="website" property="og:type"/>
+<meta content="Tarraco Domo" property="og:site_name"/>
+<meta content="es_ES" property="og:locale"/>
+<meta content="https://tarracodomo.com/doc-esp8266" property="og:url"/>
+<meta content="ESP8266: especificaciones y aplicaciones | Tarraco Domo" property="og:title"/>
+<meta content="Ficha técnica del ESP8266EX: procesador de 32 bits hasta 160 MHz, WiFi 802.11 b/g/n y 17 pines GPIO. Aplicaciones de domótica y consideraciones." property="og:description"/>
+<meta content="https://tarracodomo.com/image-3.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="675" property="og:image:height"/>
+<meta content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@tarracodomo" name="twitter:site"/>
+<meta content="ESP8266: especificaciones y aplicaciones | Tarraco Domo" name="twitter:title"/>
+<meta content="Ficha técnica del ESP8266EX: procesador de 32 bits hasta 160 MHz, WiFi 802.11 b/g/n y 17 pines GPIO. Aplicaciones de domótica y consideraciones." name="twitter:description"/>
+<meta content="https://tarracodomo.com/image-3.png" name="twitter:image"/>
 <style>.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:.6rem 1rem;z-index:999}.skip:focus{left:1rem}</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://tarracodomo.com/"}, {"@type": "ListItem", "position": 2, "name": "Documentación", "item": "https://tarracodomo.com/documentacion"}, {"@type": "ListItem", "position": 3, "name": "ESP8266", "item": "https://tarracodomo.com/doc-esp8266"}]}</script>
 </head><body>
 <a class="skip" href="#main">Saltar al contenido</a>
-<nav class="site-nav" aria-label="Navegacion principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
-<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"><img class="banner" src="/image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" width="1200" height="675"></picture></a><div class="brand">Tarraco Domo</div></div></header>
-<main id="main" class="wrap">
+<nav aria-label="Navegacion principal" class="site-nav"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
+<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"/><img alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" class="banner" height="675" src="/image-3.png" width="1200"/></picture></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap" id="main">
 <h1 class="pt">ESP8266</h1>
 <p class="sub">El chip WiFi económico que popularizó los dispositivos conectados caseros.</p>
 <div class="doc">
 <div class="ficha">
-<figure>
-<img src="/img/esp8266.webp" alt="Módulo ESP8266 en placa de desarrollo con antena WiFi" width="1200" height="749" loading="lazy" decoding="async">
-<figcaption>Foto de Wikimedia Commons. <a href="https://github.com/tarracodomo/tarracodomo-web/blob/main/ATTRIBUCION.md">Crédito</a>.</figcaption>
-</figure>
+<figure class="fotos-propias"><img alt="Placa NodeMCU ESP8266" decoding="async" height="864" loading="lazy" src="/img/propias/esp8266.webp" style="display:block;max-width:100%;height:auto;border-radius:12px" width="1000"/><figcaption>Fotografías propias de Tarraco Domo.</figcaption></figure>
 <div class="datos">
 <h2>Especificaciones técnicas</h2>
 <table class="spec">
@@ -69,10 +67,10 @@
 <li>No tiene Bluetooth. Si lo necesitas, conviene valorar un ESP32.</li>
 <li>La hoja de datos de Espressif de noviembre de 2025 lo marca como NRND (no recomendado para nuevos diseños). Sigue siendo muy válido para proyectos caseros y prototipos, pero para un producto nuevo conviene valorar chips más recientes.</li>
 </ul>
-<p class="note">Fuentes: <a href="https://documentation.espressif.com/0a-esp8266ex_datasheet_en.html" target="_blank" rel="noopener noreferrer">hoja de datos oficial de Espressif</a> y <a href="https://docs.gizwits.com/en-us/module_source/esp8266/esp8266_datasheet.html" target="_blank" rel="noopener noreferrer">Gizwits</a>. Los datos son orientativos.</p>
+<p class="note">Fuentes: <a href="https://documentation.espressif.com/0a-esp8266ex_datasheet_en.html" rel="noopener noreferrer" target="_blank">hoja de datos oficial de Espressif</a> y <a href="https://docs.gizwits.com/en-us/module_source/esp8266/esp8266_datasheet.html" rel="noopener noreferrer" target="_blank">Gizwits</a>. Los datos son orientativos.</p>
 <p class="back"><a href="/documentacion">← Volver a Documentación</a></p>
 </div>
 </main>
-<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a></footer>
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fc4a22d99a2740a48d0bb8af129d22fc"}'></script><!-- End Cloudflare Web Analytics -->
+<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" rel="noopener noreferrer" target="_blank">X</a></footer>
+<!-- Cloudflare Web Analytics --><script data-cf-beacon='{"token": "fc4a22d99a2740a48d0bb8af129d22fc"}' src="https://static.cloudflareinsights.com/beacon.min.js" type="module"></script><!-- End Cloudflare Web Analytics -->
 </body></html>

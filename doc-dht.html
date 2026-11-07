@@ -1,40 +1,40 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Sensores DHT11 y DHT22: especificaciones y conexión | Tarraco Domo</title>
-<meta name="description" content="Ficha técnica de los sensores de temperatura y humedad DHT11 y DHT22: rangos, precisión, frecuencia de lectura, conexión con ESP32, ESP8266 y Arduino.">
-<link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/cabecera.css">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://tarracodomo.com/doc-dht">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<meta name="theme-color" content="#ffffff">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Tarraco Domo">
-<meta property="og:locale" content="es_ES">
-<meta property="og:url" content="https://tarracodomo.com/doc-dht">
-<meta property="og:title" content="Sensores DHT11 y DHT22: especificaciones y conexión | Tarraco Domo">
-<meta property="og:description" content="Ficha técnica de los sensores de temperatura y humedad DHT11 y DHT22: rangos, precisión, frecuencia de lectura, conexión con ESP32, ESP8266 y Arduino.">
-<meta property="og:image" content="https://tarracodomo.com/image-3.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="675">
-<meta property="og:image:alt" content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@tarracodomo">
-<meta name="twitter:title" content="Sensores DHT11 y DHT22: especificaciones y conexión | Tarraco Domo">
-<meta name="twitter:description" content="Ficha técnica de los sensores de temperatura y humedad DHT11 y DHT22: rangos, precisión, frecuencia de lectura, conexión con ESP32, ESP8266 y Arduino.">
-<meta name="twitter:image" content="https://tarracodomo.com/image-3.png">
+<meta content="Ficha técnica de los sensores de temperatura y humedad DHT11 y DHT22: rangos, precisión, frecuencia de lectura, conexión con ESP32, ESP8266 y Arduino." name="description"/>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/cabecera.css" rel="stylesheet"/>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://tarracodomo.com/doc-dht" rel="canonical"/>
+<link href="/favicon.ico" rel="icon" sizes="32x32"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta content="website" property="og:type"/>
+<meta content="Tarraco Domo" property="og:site_name"/>
+<meta content="es_ES" property="og:locale"/>
+<meta content="https://tarracodomo.com/doc-dht" property="og:url"/>
+<meta content="Sensores DHT11 y DHT22: especificaciones y conexión | Tarraco Domo" property="og:title"/>
+<meta content="Ficha técnica de los sensores de temperatura y humedad DHT11 y DHT22: rangos, precisión, frecuencia de lectura, conexión con ESP32, ESP8266 y Arduino." property="og:description"/>
+<meta content="https://tarracodomo.com/image-3.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="675" property="og:image:height"/>
+<meta content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@tarracodomo" name="twitter:site"/>
+<meta content="Sensores DHT11 y DHT22: especificaciones y conexión | Tarraco Domo" name="twitter:title"/>
+<meta content="Ficha técnica de los sensores de temperatura y humedad DHT11 y DHT22: rangos, precisión, frecuencia de lectura, conexión con ESP32, ESP8266 y Arduino." name="twitter:description"/>
+<meta content="https://tarracodomo.com/image-3.png" name="twitter:image"/>
 <style>.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:.6rem 1rem;z-index:999}.skip:focus{left:1rem}</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://tarracodomo.com/"}, {"@type": "ListItem", "position": 2, "name": "Documentación", "item": "https://tarracodomo.com/documentacion"}, {"@type": "ListItem", "position": 3, "name": "Sensores DHT11 y DHT22", "item": "https://tarracodomo.com/doc-dht"}]}</script>
 </head><body>
 <a class="skip" href="#main">Saltar al contenido</a>
-<nav class="site-nav" aria-label="Navegacion principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
-<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"><img class="banner" src="/image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" width="1200" height="675"></picture></a><div class="brand">Tarraco Domo</div></div></header>
-<main id="main" class="wrap">
+<nav aria-label="Navegacion principal" class="site-nav"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
+<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"/><img alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" class="banner" height="675" src="/image-3.png" width="1200"/></picture></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap" id="main">
 <h1 class="pt">Sensores DHT11 y DHT22</h1>
 <p class="sub">Sensores digitales de temperatura y humedad, muy baratos y fáciles de conectar a cualquier placa.</p>
 <div class="doc">
-<h2>DHT11 frente a DHT22</h2>
-<table class="spec">
+<div class="ficha"><figure class="fotos-propias"><img alt="Sensor DHT11 HW036" decoding="async" height="720" loading="lazy" src="/img/propias/dht11.webp" style="display:block;max-width:100%;height:auto;border-radius:12px" width="1000"/><figcaption>Fotografías propias de Tarraco Domo.</figcaption></figure><div class="datos"><h2>DHT11 frente a DHT22</h2><table class="spec">
 <tr><th>Característica</th><th>DHT11</th><th>DHT22 (AM2302)</th></tr>
 <tr><th>Rango de temperatura</th><td>0 a 50 °C</td><td>−40 a 80 °C</td></tr>
 <tr><th>Precisión de temperatura</th><td>±2 °C</td><td>±0,5 °C</td></tr>
@@ -44,7 +44,8 @@
 <tr><th>Intervalo entre lecturas</th><td>1 segundo</td><td>2 segundos</td></tr>
 <tr><th>Alimentación</th><td>3 a 5,5 V</td><td>3 a 6 V</td></tr>
 <tr><th>Consumo</th><td>0,5 a 2,5 mA</td><td>1 a 1,5 mA</td></tr>
-</table>
+</table></div></div>
+
 <p>Los valores exactos varían un poco entre fabricantes y revisiones, así que conviene mirar la hoja de datos del sensor que compres.</p>
 <h2>Cuál elegir</h2>
 <ul class="list">
@@ -72,10 +73,10 @@
 <li>No pongas el sensor cerca de fuentes de calor, como el propio microcontrolador, o medirá mal.</li>
 <li>Para medir con más precisión existen otros sensores, pero para uso doméstico los DHT cumplen.</li>
 </ul>
-<p class="note">Fuentes: <a href="https://www.mouser.com/datasheet/2/737/dht-932870.pdf" target="_blank" rel="noopener noreferrer">Mouser / Adafruit</a>, <a href="https://randomnerdtutorials.com/esp32-dht11-dht22-temperature-humidity-sensor-arduino-ide/" target="_blank" rel="noopener noreferrer">Random Nerd Tutorials</a> y <a href="https://solderhub.com/sensors/dht11-dht22" target="_blank" rel="noopener noreferrer">SolderHub</a>. Los datos son orientativos.</p>
+<p class="note">Fuentes: <a href="https://www.mouser.com/datasheet/2/737/dht-932870.pdf" rel="noopener noreferrer" target="_blank">Mouser / Adafruit</a>, <a href="https://randomnerdtutorials.com/esp32-dht11-dht22-temperature-humidity-sensor-arduino-ide/" rel="noopener noreferrer" target="_blank">Random Nerd Tutorials</a> y <a href="https://solderhub.com/sensors/dht11-dht22" rel="noopener noreferrer" target="_blank">SolderHub</a>. Los datos son orientativos.</p>
 <p class="back"><a href="/documentacion">← Volver a Documentación</a></p>
 </div>
 </main>
-<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a></footer>
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fc4a22d99a2740a48d0bb8af129d22fc"}'></script><!-- End Cloudflare Web Analytics -->
+<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" rel="noopener noreferrer" target="_blank">X</a></footer>
+<!-- Cloudflare Web Analytics --><script data-cf-beacon='{"token": "fc4a22d99a2740a48d0bb8af129d22fc"}' src="https://static.cloudflareinsights.com/beacon.min.js" type="module"></script><!-- End Cloudflare Web Analytics -->
 </body></html>

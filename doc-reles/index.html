@@ -1,49 +1,50 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Módulos de relé y contactores: guía y seguridad | Tarraco Domo</title>
-<meta name="description" content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V.">
-<link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/cabecera.css">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://tarracodomo.com/doc-reles">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<meta name="theme-color" content="#ffffff">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Tarraco Domo">
-<meta property="og:locale" content="es_ES">
-<meta property="og:url" content="https://tarracodomo.com/doc-reles">
-<meta property="og:title" content="Módulos de relé y contactores: guía y seguridad | Tarraco Domo">
-<meta property="og:description" content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V.">
-<meta property="og:image" content="https://tarracodomo.com/image-3.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="675">
-<meta property="og:image:alt" content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@tarracodomo">
-<meta name="twitter:title" content="Módulos de relé y contactores: guía y seguridad | Tarraco Domo">
-<meta name="twitter:description" content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V.">
-<meta name="twitter:image" content="https://tarracodomo.com/image-3.png">
+<meta content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V." name="description"/>
+<link href="/styles.css" rel="stylesheet"/>
+<link href="/cabecera.css" rel="stylesheet"/>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://tarracodomo.com/doc-reles" rel="canonical"/>
+<link href="/favicon.ico" rel="icon" sizes="32x32"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta content="website" property="og:type"/>
+<meta content="Tarraco Domo" property="og:site_name"/>
+<meta content="es_ES" property="og:locale"/>
+<meta content="https://tarracodomo.com/doc-reles" property="og:url"/>
+<meta content="Módulos de relé y contactores: guía y seguridad | Tarraco Domo" property="og:title"/>
+<meta content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V." property="og:description"/>
+<meta content="https://tarracodomo.com/image-3.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="675" property="og:image:height"/>
+<meta content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@tarracodomo" name="twitter:site"/>
+<meta content="Módulos de relé y contactores: guía y seguridad | Tarraco Domo" name="twitter:title"/>
+<meta content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V." name="twitter:description"/>
+<meta content="https://tarracodomo.com/image-3.png" name="twitter:image"/>
 <style>.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:.6rem 1rem;z-index:999}.skip:focus{left:1rem}</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://tarracodomo.com/"}, {"@type": "ListItem", "position": 2, "name": "Documentación", "item": "https://tarracodomo.com/documentacion"}, {"@type": "ListItem", "position": 3, "name": "Módulos de relé y contactores", "item": "https://tarracodomo.com/doc-reles"}]}</script>
 </head><body>
 <a class="skip" href="#main">Saltar al contenido</a>
-<nav class="site-nav" aria-label="Navegacion principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
-<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"><img class="banner" src="/image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" width="1200" height="675"></picture></a><div class="brand">Tarraco Domo</div></div></header>
-<main id="main" class="wrap">
+<nav aria-label="Navegacion principal" class="site-nav"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
+<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"/><img alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" class="banner" height="675" src="/image-3.png" width="1200"/></picture></a><div class="brand">Tarraco Domo</div></div></header>
+<main class="wrap" id="main">
 <h1 class="pt">Módulos de relé y contactores</h1>
 <p class="sub">Cómo una placa de 3,3 V puede encender y apagar luces, bombas o motores de forma segura.</p>
 <div class="doc">
 <h2>Aviso de seguridad</h2>
 <p class="note"><strong>La tensión de red (230 V) puede ser mortal.</strong> Corta la corriente en el cuadro eléctrico y comprueba con un detector de tensión antes de tocar cualquier cable. Si no tienes experiencia, la parte de 230 V debe hacerla un instalador eléctrico autorizado. Usa siempre una caja aislante y cierra los bornes.</p>
-<h2>Módulo de relé</h2>
-<p>Es la forma habitual de que un microcontrolador conmute una carga. Los módulos comunes de 1, 2, 4 u 8 canales se alimentan a 5 V y, mejor si llevan optoacoplador, aíslan la placa del circuito de potencia.</p>
-<table class="spec">
+<div class="ficha"><figure class="fotos-propias"><img alt="Módulo de relé HW-383" decoding="async" height="1200" loading="lazy" src="/img/propias/rele.webp" style="display:block;max-width:100%;height:auto;border-radius:12px" width="900"/><figcaption>Fotografías propias de Tarraco Domo.</figcaption></figure><div class="datos"><h2>Módulo de relé</h2><table class="spec">
 <tr><th>Capacidad típica de contactos</th><td>10 A a 125 V CA, 7 A a 240 V CA y 7 A a 28 V CC (carga resistiva)</td></tr>
 <tr><th>Alimentación de la bobina</th><td>5 V, unos 70 mA por relé</td></tr>
 <tr><th>Señal de control</th><td>Entrada IN por canal; muchos módulos se activan con nivel bajo</td></tr>
 <tr><th>Contactos</th><td>COM (común), NO (normalmente abierto) y NC (normalmente cerrado)</td></tr>
 <tr><th>Aislamiento</th><td>Optoacoplador (por ejemplo PC817) en los módulos que lo incluyen</td></tr>
-</table>
+</table></div></div>
+<p>Es la forma habitual de que un microcontrolador conmute una carga. Los módulos comunes de 1, 2, 4 u 8 canales se alimentan a 5 V y, mejor si llevan optoacoplador, aíslan la placa del circuito de potencia.</p>
+
 <p>La capacidad real depende del modelo y del tipo de carga. Para motores o cargas inductivas hay que reducirla bastante, y a 230 V conviene planificar con unos 7 A en lugar de 10 A.</p>
 <h2>Conexión de los contactos</h2>
 <ul class="list">
@@ -73,10 +74,10 @@
 <li>Control de persianas, calefacción y puertas de garaje</li>
 <li>Relés integrados en Home Assistant con ESPHome</li>
 </ul>
-<p class="note">Fuentes: <a href="https://electricalflux.com/mcu-coding/esp32-relay-module-wiring-code-debug" target="_blank" rel="noopener noreferrer">ElectricalFlux</a>, <a href="https://makerhub.my/tutorials/relay-module-arduino-safety/" target="_blank" rel="noopener noreferrer">MakerHub</a>, <a href="https://projectslearner.com/esp32/relay-module" target="_blank" rel="noopener noreferrer">Projects Learner</a> y <a href="https://electronics.alibaba.com/buyingguides/esp32-relay-guide-wiring,-safety-real-world-use" target="_blank" rel="noopener noreferrer">Alibaba Electronics</a>. Los datos son orientativos; consulta siempre la ficha del módulo o contactor concreto y la normativa eléctrica vigente.</p>
+<p class="note">Fuentes: <a href="https://electricalflux.com/mcu-coding/esp32-relay-module-wiring-code-debug" rel="noopener noreferrer" target="_blank">ElectricalFlux</a>, <a href="https://makerhub.my/tutorials/relay-module-arduino-safety/" rel="noopener noreferrer" target="_blank">MakerHub</a>, <a href="https://projectslearner.com/esp32/relay-module" rel="noopener noreferrer" target="_blank">Projects Learner</a> y <a href="https://electronics.alibaba.com/buyingguides/esp32-relay-guide-wiring,-safety-real-world-use" rel="noopener noreferrer" target="_blank">Alibaba Electronics</a>. Los datos son orientativos; consulta siempre la ficha del módulo o contactor concreto y la normativa eléctrica vigente.</p>
 <p class="back"><a href="/documentacion">← Volver a Documentación</a></p>
 </div>
 </main>
-<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a></footer>
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fc4a22d99a2740a48d0bb8af129d22fc"}'></script><!-- End Cloudflare Web Analytics -->
+<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" rel="noopener noreferrer" target="_blank">X</a></footer>
+<!-- Cloudflare Web Analytics --><script data-cf-beacon='{"token": "fc4a22d99a2740a48d0bb8af129d22fc"}' src="https://static.cloudflareinsights.com/beacon.min.js" type="module"></script><!-- End Cloudflare Web Analytics -->
 </body></html>
