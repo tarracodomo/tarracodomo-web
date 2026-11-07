@@ -19,19 +19,43 @@ def esc(value):
     return html.escape(value.strip(), quote=True)
 
 
+def short_name(title):
+    name = re.sub(r"\s*\|\s*Tarraco Domo\s*$", "", title or "").strip()
+    if ":" in name:
+        head = name.split(":", 1)[0].strip()
+        if head:
+            name = head
+    return name
+
+
 def crumbs(path, title, url):
-    name = re.sub(r"\s*\|\s*Tarraco Domo\s*$", "", title or "").strip() or path.stem
+    name = short_name(title) or path.stem
     items = [
         {"@type": "ListItem", "position": 1, "name": "Inicio", "item": BASE + "/"},
     ]
-    parent = None
     if path.stem.startswith("doc-"):
-        parent = ("Documentación", BASE + "/documentacion")
-    if parent:
-        items.append({"@type": "ListItem", "position": 2, "name": parent[0], "item": parent[1]})
+        items.append({"@type": "ListItem", "position": 2, "name": "Documentación", "item": BASE + "/documentacion"})
     items.append({"@type": "ListItem", "position": len(items) + 1, "name": name, "item": url})
     data = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
+
+
+def shorten_existing(text, title):
+    def repl(match):
+        block = match.group(1)
+        if "BreadcrumbList" not in block:
+            return match.group(0)
+        try:
+            data = json.loads(block)
+        except ValueError:
+            return match.group(0)
+        items = data.get("itemListElement") or []
+        name = short_name(title)
+        if items and name:
+            items[-1]["name"] = name
+        return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
+
+    return re.sub(r'<script type="application/ld\+json">(.*?)</script>', repl, text, flags=re.S)
 
 
 def patch(path):
@@ -41,8 +65,9 @@ def patch(path):
     if not match:
         return False
     head = match.group(1)
-    title = re.search(r"<title>(.*?)</title>", head, re.S | re.I)
-    title = esc(title.group(1)) if title else "Tarraco Domo"
+    raw_title = re.search(r"<title>(.*?)</title>", head, re.S | re.I)
+    raw_title = html.unescape(raw_title.group(1)) if raw_title else "Tarraco Domo"
+    title = esc(raw_title)
     desc = re.search(r'<meta\s+name="description"\s+content="(.*?)"', head, re.I | re.S)
     desc = esc(desc.group(1)) if desc else "Domótica, cámaras y monitorización en Tarragona."
     canon = re.search(r'<link\s+rel="canonical"\s+href="(.*?)"', head, re.I)
@@ -75,12 +100,13 @@ def patch(path):
             '<meta name="twitter:image" content="%s">' % IMG,
         ]
     if '"BreadcrumbList"' not in text:
-        add.append(crumbs(path, html.unescape(title), url))
+        add.append(crumbs(path, raw_title, url))
     if 'class="skip"' not in text:
         add.append(SKIP_CSS)
     if add:
         text = re.sub(r"</head>", "\n".join(add) + "\n</head>", text, count=1, flags=re.I)
 
+    text = shorten_existing(text, raw_title)
     text = re.sub(r"<br>\s*<div class=\"dev\"[^>]*>.*?</div>", "", text, flags=re.S)
 
     if 'class="skip"' not in text:
