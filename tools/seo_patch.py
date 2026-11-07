@@ -1,4 +1,5 @@
 import html
+import json
 import pathlib
 import re
 
@@ -16,6 +17,21 @@ def url_for(path):
 
 def esc(value):
     return html.escape(value.strip(), quote=True)
+
+
+def crumbs(path, title, url):
+    name = re.sub(r"\s*\|\s*Tarraco Domo\s*$", "", title or "").strip() or path.stem
+    items = [
+        {"@type": "ListItem", "position": 1, "name": "Inicio", "item": BASE + "/"},
+    ]
+    parent = None
+    if path.stem.startswith("doc-"):
+        parent = ("Documentación", BASE + "/documentacion")
+    if parent:
+        items.append({"@type": "ListItem", "position": 2, "name": parent[0], "item": parent[1]})
+    items.append({"@type": "ListItem", "position": len(items) + 1, "name": name, "item": url})
+    data = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
 
 
 def patch(path):
@@ -58,6 +74,8 @@ def patch(path):
             '<meta name="twitter:description" content="%s">' % desc,
             '<meta name="twitter:image" content="%s">' % IMG,
         ]
+    if '"BreadcrumbList"' not in text:
+        add.append(crumbs(path, html.unescape(title), url))
     if 'class="skip"' not in text:
         add.append(SKIP_CSS)
     if add:
