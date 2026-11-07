@@ -1,0 +1,48 @@
+name: Rutas limpias
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*.html"
+      - "sitemap.xml"
+      - ".github/workflows/rutas-limpias.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rutas-limpias
+  cancel-in-progress: true
+
+jobs:
+  carpetas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Crear una carpeta por página
+        run: |
+          set -e
+          for f in *.html; do
+            base="${f%.html}"
+            case "$base" in
+              index|404) continue ;;
+            esac
+          mkdir -p "$base"
+            cp "$f" "$base/index.html"
+          done
+          ls -d */
+
+      - name: Guardar cambios
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Sin cambios"
+            exit 0
+          fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Rutas limpias: una carpeta por página"
+          git push
