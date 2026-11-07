@@ -1,0 +1,55 @@
+name: Analitica
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*.html"
+      - ".github/workflows/analytics.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: analitica
+  cancel-in-progress: true
+
+jobs:
+  snippet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Insertar snippet de Cloudflare Web Analytics
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          SNIPPET = "<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"fc4a22d99a2740a48d0bb8af129d22fc\"}'></script><!-- End Cloudflare Web Analytics -->"
+          changed = []
+          for f in sorted(pathlib.Path('.').glob('*.html')):
+              t = f.read_text(encoding='utf-8')
+              if 'cloudflareinsights' in t:
+                  continue
+              if '</body>' in t:
+                  t = t.replace('</body>', SNIPPET + '\n</body>', 1)
+              else:
+                  t = t + SNIPPET + '\n'
+              f.write_text(t, encoding='utf-8')
+              changed.append(f.name)
+          print('Paginas modificadas:', len(changed))
+          for c in changed:
+              print(' -', c)
+          PY
+
+      - name: Guardar cambios
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Sin cambios"
+            exit 0
+          fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Analitica: snippet de Cloudflare Web Analytics en todas las paginas"
+          git push
