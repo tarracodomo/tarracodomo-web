@@ -21,25 +21,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Insertar snippet de Cloudflare Web Analytics
+      - name: Insertar snippet y regenerar carpetas
         run: |
           python3 - <<'PY'
-          import pathlib
+          import pathlib, shutil
           SNIPPET = "<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"fc4a22d99a2740a48d0bb8af129d22fc\"}'></script><!-- End Cloudflare Web Analytics -->"
           changed = []
           for f in sorted(pathlib.Path('.').glob('*.html')):
               t = f.read_text(encoding='utf-8')
-              if 'cloudflareinsights' in t:
+              if 'cloudflareinsights' not in t:
+                  if '</body>' in t:
+                      t = t.replace('</body>', SNIPPET + '\n</body>', 1)
+                  else:
+                      t = t + SNIPPET + '\n'
+                  f.write_text(t, encoding='utf-8')
+                  changed.append(f.name)
+          print('Con snippet:', len(changed))
+          for f in sorted(pathlib.Path('.').glob('*.html')):
+              name = f.stem
+              if name in ('index', '404'):
                   continue
-              if '</body>' in t:
-                  t = t.replace('</body>', SNIPPET + '\n</body>', 1)
-              else:
-                  t = t + SNIPPET + '\n'
-              f.write_text(t, encoding='utf-8')
-              changed.append(f.name)
-          print('Paginas modificadas:', len(changed))
-          for c in changed:
-              print(' -', c)
+              d = pathlib.Path(name)
+              d.mkdir(exist_ok=True)
+              shutil.copyfile(f, d / 'index.html')
+          print('Carpetas regeneradas')
           PY
 
       - name: Guardar cambios
@@ -51,5 +56,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
           git add -A
-          git commit -m "Analitica: snippet de Cloudflare Web Analytics en todas las paginas"
+          git commit -m "Analitica: snippet y carpetas limpias al dia"
           git push
