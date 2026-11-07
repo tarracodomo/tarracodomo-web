@@ -33,6 +33,12 @@
 <h1 class="pt">Sensor ultrasónico HC-SR04</h1>
 <p class="sub">Mide la distancia a un objeto enviando un pulso de sonido que el ser humano no oye y esperando su eco.</p>
 <div class="doc">
+<div class="ficha">
+<figure>
+<img src="/img/sensor-ultrasonidos.webp" alt="Módulo de sensor de distancia por ultrasonidos HC-SR04" width="1000" height="1000" loading="lazy" decoding="async">
+<figcaption>Foto de Wikimedia Commons. <a href="https://github.com/tarracodomo/tarracodomo-web/blob/main/ATTRIBUCION.md">Crédito</a>.</figcaption>
+</figure>
+<div class="datos">
 <h2>Especificaciones técnicas</h2>
 <table class="spec">
 <tr><th>Alimentación</th><td>5 V (rango de 4,5 a 5,5 V)</td></tr>
@@ -43,6 +49,8 @@
 <tr><th>Salida (ECHO)</th><td>Pulso digital de 5 V cuya duración es el tiempo de ida y vuelta</td></tr>
 <tr><th>Pines</th><td>VCC, TRIG, ECHO y GND</td></tr>
 </table>
+</div>
+</div>
 <h2>Cómo funciona</h2>
 <p>La placa pone TRIG en nivel alto durante al menos 10 µs. El sensor emite entonces una ráfaga de 40 kHz y mantiene ECHO en alto hasta que vuelve el eco. La distancia se calcula a partir de ese tiempo: es la mitad del recorrido de ida y vuelta multiplicada por la velocidad del sonido, unos 343 m/s en aire a temperatura ambiente. En la práctica, equivale a dividir los microsegundos del pulso entre 58 para obtener centímetros.</p>
 <h2>Cómo se conecta</h2>
