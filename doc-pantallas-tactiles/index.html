@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pantallas táctiles TFT con ESP32: especificaciones y conexión | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica de las pantallas táctiles TFT para ESP32 y Arduino: controlador ILI9341, táctil resistivo XPT2046 o capacitivo, conexión SPI, librerías y la placa Cheap Yellow Display.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/cabecera.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://tarracodomo.com/doc-pantallas-tactiles">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tarraco Domo">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://tarracodomo.com/doc-pantallas-tactiles">
+<meta property="og:title" content="Pantallas táctiles TFT con ESP32: especificaciones y conexión | Tarraco Domo">
+<meta property="og:description" content="Ficha técnica de las pantallas táctiles TFT para ESP32 y Arduino: controlador ILI9341, táctil resistivo XPT2046 o capacitivo, conexión SPI, librerías y la placa Cheap Yellow Display.">
+<meta property="og:image" content="https://tarracodomo.com/image-3.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@tarracodomo">
+<meta name="twitter:title" content="Pantallas táctiles TFT con ESP32: especificaciones y conexión | Tarraco Domo">
+<meta name="twitter:description" content="Ficha técnica de las pantallas táctiles TFT para ESP32 y Arduino: controlador ILI9341, táctil resistivo XPT2046 o capacitivo, conexión SPI, librerías y la placa Cheap Yellow Display.">
+<meta name="twitter:image" content="https://tarracodomo.com/image-3.png">
+<style>.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:.6rem 1rem;z-index:999}.skip:focus{left:1rem}</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://tarracodomo.com/"}, {"@type": "ListItem", "position": 2, "name": "Documentación", "item": "https://tarracodomo.com/documentacion"}, {"@type": "ListItem", "position": 3, "name": "Pantallas táctiles TFT con ESP32", "item": "https://tarracodomo.com/doc-pantallas-tactiles"}]}</script>
+</head><body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<nav class="site-nav" aria-label="Navegacion principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
+<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"><img class="banner" src="/image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" width="1200" height="675"></picture></a><div class="brand">Tarraco Domo</div></div></header>
+<main id="main" class="wrap">
+<h1 class="pt">Pantallas táctiles TFT</h1>
+<p class="sub">Pantallas a color con táctil para crear paneles de control, termostatos y mandos de domótica con un ESP32 o un Arduino.</p>
+<div class="doc">
+<h2>Especificaciones habituales</h2>
+<table class="spec">
+<tr><th>Tamaños</th><td>De 1,3 a 3,5 pulgadas en los módulos más comunes; hay también de 7 pulgadas</td></tr>
+<tr><th>Controlador de pantalla</th><td>ILI9341 (240 x 320 píxeles, unos 65 000 colores), ILI9488 o ST7789</td></tr>
+<tr><th>Interfaz de pantalla</th><td>SPI</td></tr>
+<tr><th>Táctil resistivo</th><td>Controlador XPT2046, por SPI. Funciona por presión y necesita calibración</td></tr>
+<tr><th>Táctil capacitivo</th><td>Controladores como FT6236 o GT911, normalmente por I2C. Responde a un roce y admite varios dedos</td></tr>
+<tr><th>Alimentación</th><td>3,3 V en la mayoría de los módulos con ESP32</td></tr>
+</table>
+<h2>Resistivo o capacitivo</h2>
+<p>El táctil resistivo reacciona a la presión, se puede usar con guantes o con un lápiz, pero no admite gestos con varios dedos y hay que calibrarlo. El capacitivo, como el de un móvil, responde a un roce suave y admite gestos, aunque cuesta algo más y usa otra librería. Muchos ejemplos populares están hechos solo para el resistivo, así que conviene comprobar qué versión se compra.</p>
+<h2>Cuál es la conexión</h2>
+<ul class="list">
+<li><strong>Pantalla y táctil resistivo:</strong> comparten las líneas SPI (MOSI, MISO y SCK). Solo cambian los pines CS, uno para la pantalla y otro para el táctil.</li>
+<li><strong>Otros pines de la pantalla:</strong> DC, RESET, alimentación de 3,3 V y GND. La retroiluminación suele ir a un pin propio.</li>
+<li><strong>ESP32:</strong> un montaje habitual usa GPIO 23 (MOSI), GPIO 19 (MISO) y GPIO 18 (SCK) en el bus VSPI.</li>
+<li><strong>Táctil capacitivo:</strong> se conecta por I2C (SDA y SCL) más un pin de interrupción y otro de reinicio.</li>
+</ul>
+<h2>Librerías para programarlas</h2>
+<ul class="list">
+<li><strong>TFT_eSPI:</strong> maneja la pantalla y el táctil resistivo en ESP32 y ESP8266.</li>
+<li><strong>XPT2046_Touchscreen:</strong> lee el táctil resistivo.</li>
+<li><strong>LVGL:</strong> librería gráfica de código abierto para dibujar botones, deslizadores y menús.</li>
+<li><strong>ESPHome:</strong> permite definir la pantalla y sus botones desde un archivo de configuración y conectarla con Home Assistant.</li>
+</ul>
+<h2>Placa integrada: Cheap Yellow Display</h2>
+<p>La ESP32-2432S028, conocida como Cheap Yellow Display o CYD, reúne en una sola placa un ESP32, una pantalla de 2,8 pulgadas y 240 x 320 píxeles con táctil resistivo XPT2046, una ranura microSD, un LED RGB, un sensor de luz y una conexión para altavoz. Su precio ronda los 10 a 15 dólares y no requiere soldar. Existen revisiones con distinto controlador de pantalla (ILI9341 o ST7789), así que hay que mirar cuál se tiene antes de configurar la librería. La misma familia incluye modelos de 2,4, 3,5 y 7 pulgadas, con táctil resistivo o capacitivo.</p>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Panel de control para Home Assistant</li>
+<li>Termostato o control de climatización con sensor <a href="/doc-dht">DHT</a></li>
+<li>Mando de luces, persianas y <a href="/doc-reles">relés</a></li>
+<li>Visor de datos y gráficas de sensores</li>
+<li>Terminal de alarma o de control de acceso</li>
+</ul>
+<h2>Qué tener en cuenta</h2>
+<ul class="list">
+<li>El táctil resistivo necesita calibración y no admite varios dedos.</li>
+<li>Los pines no se pueden elegir libremente en todos los montajes; sigue la tabla de la librería o de la placa que uses.</li>
+<li>La retroiluminación consume bastante; se puede regular con PWM para ahorrar energía.</li>
+<li>Con LVGL conviene una placa con memoria suficiente; un ESP32 va bien, un ESP8266 queda justo.</li>
+</ul>
+<p class="note">Fuentes: <a href="https://randomnerdtutorials.com/cheap-yellow-display-esp32-2432s028r/" target="_blank" rel="noopener noreferrer">Random Nerd Tutorials</a>, <a href="https://www.atomic14.com/esp32/boards/esp32-2432s028r/" target="_blank" rel="noopener noreferrer">atomic14</a> y <a href="https://controllerstech.com/esp32-12-esp-spi-lcd-part3/" target="_blank" rel="noopener noreferrer">ControllersTech</a>. Los datos son orientativos y varían entre fabricantes.</p>
+<p class="back"><a href="/documentacion">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a></footer>
+</body></html>

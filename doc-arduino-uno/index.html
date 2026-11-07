@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arduino UNO R3: especificaciones y aplicaciones | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica de Arduino UNO R3: ATmega328P a 16 MHz, 14 pines digitales, 6 analógicos y funcionamiento a 5 V. Aplicaciones de domótica.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/cabecera.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://tarracodomo.com/doc-arduino-uno">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tarraco Domo">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://tarracodomo.com/doc-arduino-uno">
+<meta property="og:title" content="Arduino UNO R3: especificaciones y aplicaciones | Tarraco Domo">
+<meta property="og:description" content="Ficha técnica de Arduino UNO R3: ATmega328P a 16 MHz, 14 pines digitales, 6 analógicos y funcionamiento a 5 V. Aplicaciones de domótica.">
+<meta property="og:image" content="https://tarracodomo.com/image-3.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@tarracodomo">
+<meta name="twitter:title" content="Arduino UNO R3: especificaciones y aplicaciones | Tarraco Domo">
+<meta name="twitter:description" content="Ficha técnica de Arduino UNO R3: ATmega328P a 16 MHz, 14 pines digitales, 6 analógicos y funcionamiento a 5 V. Aplicaciones de domótica.">
+<meta name="twitter:image" content="https://tarracodomo.com/image-3.png">
+<style>.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:.6rem 1rem;z-index:999}.skip:focus{left:1rem}</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://tarracodomo.com/"}, {"@type": "ListItem", "position": 2, "name": "Documentación", "item": "https://tarracodomo.com/documentacion"}, {"@type": "ListItem", "position": 3, "name": "Arduino UNO R3", "item": "https://tarracodomo.com/doc-arduino-uno"}]}</script>
+</head><body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<nav class="site-nav" aria-label="Navegacion principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
+<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"><img class="banner" src="/image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" width="1200" height="675"></picture></a><div class="brand">Tarraco Domo</div></div></header>
+<main id="main" class="wrap">
+<h1 class="pt">Arduino UNO R3</h1>
+<p class="sub">La placa más conocida para empezar con la electrónica y la programación.</p>
+<div class="doc">
+<h2>Especificaciones técnicas</h2>
+<table class="spec">
+<tr><th>Microcontrolador</th><td>ATmega328P</td></tr>
+<tr><th>Velocidad</th><td>16 MHz (resonador cerámico)</td></tr>
+<tr><th>Tensión de trabajo</th><td>5 V</td></tr>
+<tr><th>Pines digitales</th><td>14 de entrada/salida, 6 de ellos con PWM</td></tr>
+<tr><th>Entradas analógicas</th><td>6</td></tr>
+<tr><th>Memoria flash</th><td>32 KB</td></tr>
+<tr><th>Memoria SRAM</th><td>2 KB</td></tr>
+<tr><th>EEPROM</th><td>1 KB (no se borra al apagar)</td></tr>
+<tr><th>Conexiones</th><td>USB, conector de alimentación, cabecera ICSP y botón de reinicio</td></tr>
+</table>
+<h2>Características destacadas</h2>
+<ul class="list">
+<li>El chip ATmega328P no va soldado: se puede cambiar si se estropea.</li>
+<li>El conector de alimentación admite una pila estándar de 9 V.</li>
+<li>Es la placa de la familia Arduino con más documentación y ejemplos.</li>
+<li>No tiene WiFi ni Bluetooth: para conectarla a la red hace falta un módulo adicional.</li>
+</ul>
+<h2>Cómo se programa</h2>
+<p>Se programa con Arduino IDE en C/C++, mediante sketches, y se conecta al ordenador con un cable USB.</p>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Aprendizaje y prototipos de electrónica</li>
+<li>Lectura de sensores de temperatura, humedad y movimiento</li>
+<li>Control de relés, luces y servomotores</li>
+<li>Pantallas y paneles sencillos</li>
+<li>Automatismos que no necesitan conexión a internet</li>
+</ul>
+<h2>Qué tener en cuenta</h2>
+<p>Trabaja a 5 V, mientras que placas como el ESP32 o el ESP8266 trabajan a 3,3 V. Antes de conectarlas entre sí hay que comprobar los niveles de tensión para no dañar ninguna.</p>
+<p class="note">Fuentes: <a href="https://docs.arduino.cc/hardware/uno-rev3/" target="_blank" rel="noopener noreferrer">documentación oficial de Arduino</a> y <a href="https://proyectoarduino.com/arduino-uno-r3/" target="_blank" rel="noopener noreferrer">Proyecto Arduino</a>. Los datos son orientativos.</p>
+<p class="back"><a href="/documentacion">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a></footer>
+</body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wemos D1 R32 (ESP32): WiFi, Bluetooth y formato UNO | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica de la Wemos D1 R32 con ESP32: WiFi, Bluetooth 4.2, 240 MHz, 4 MB de flash y formato Arduino UNO R3.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/cabecera.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://tarracodomo.com/doc-wemos-d1-r32">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tarraco Domo">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://tarracodomo.com/doc-wemos-d1-r32">
+<meta property="og:title" content="Wemos D1 R32 (ESP32): WiFi, Bluetooth y formato UNO | Tarraco Domo">
+<meta property="og:description" content="Ficha técnica de la Wemos D1 R32 con ESP32: WiFi, Bluetooth 4.2, 240 MHz, 4 MB de flash y formato Arduino UNO R3.">
+<meta property="og:image" content="https://tarracodomo.com/image-3.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@tarracodomo">
+<meta name="twitter:title" content="Wemos D1 R32 (ESP32): WiFi, Bluetooth y formato UNO | Tarraco Domo">
+<meta name="twitter:description" content="Ficha técnica de la Wemos D1 R32 con ESP32: WiFi, Bluetooth 4.2, 240 MHz, 4 MB de flash y formato Arduino UNO R3.">
+<meta name="twitter:image" content="https://tarracodomo.com/image-3.png">
+<style>.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:.6rem 1rem;z-index:999}.skip:focus{left:1rem}</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://tarracodomo.com/"}, {"@type": "ListItem", "position": 2, "name": "Documentación", "item": "https://tarracodomo.com/documentacion"}, {"@type": "ListItem", "position": 3, "name": "Wemos D1 R32 (ESP32)", "item": "https://tarracodomo.com/doc-wemos-d1-r32"}]}</script>
+</head><body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<nav class="site-nav" aria-label="Navegacion principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
+<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"><img class="banner" src="/image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" width="1200" height="675"></picture></a><div class="brand">Tarraco Domo</div></div></header>
+<main id="main" class="wrap">
+<h1 class="pt">Wemos D1 R32 (ESP32)</h1>
+<p class="sub">Placa con ESP32, WiFi y Bluetooth en el mismo formato que un Arduino UNO R3.</p>
+<div class="doc">
+<h2>Especificaciones técnicas</h2>
+<table class="spec">
+<tr><th>Módulo</th><td>ESP32-WROOM-32</td></tr>
+<tr><th>Procesador</th><td>Xtensa LX6 de 32 bits, doble núcleo, hasta 240 MHz</td></tr>
+<tr><th>Memoria</th><td>520 KB de SRAM y 4 MB de flash</td></tr>
+<tr><th>WiFi</th><td>802.11 b/g/n (2,4 GHz)</td></tr>
+<tr><th>Bluetooth</th><td>Bluetooth 4.2 (Classic y BLE)</td></tr>
+<tr><th>Formato</th><td>Arduino UNO R3 (aprox. 68 × 54 mm)</td></tr>
+<tr><th>Alimentación</th><td>5 a 12 V por el conector o 5 V por micro-USB</td></tr>
+<tr><th>Tensión de los pines</th><td>3,3 V</td></tr>
+<tr><th>Conversor USB</th><td>CH340G, con conector micro-USB</td></tr>
+</table>
+<h2>Diferencia con la Wemos D1 de ESP8266</h2>
+<p>Las dos placas comparten el formato, pero por dentro son distintas. La <a href="/doc-wemos-d1">Wemos D1</a> lleva un ESP8266, que tiene WiFi pero no Bluetooth. La D1 R32 lleva un ESP32, con procesador de doble núcleo, más memoria, WiFi y Bluetooth. Si tu placa tiene Bluetooth, es esta.</p>
+<h2>Cómo se programa</h2>
+<p>Se programa con Arduino IDE (soporte para ESP32), con PlatformIO o con ESPHome para integrarla en Home Assistant. En PlatformIO y en Arduino IDE la placa aparece como WEMOS D1 R32.</p>
+<h2>Qué tener en cuenta</h2>
+<ul class="list">
+<li>Sus pines trabajan a 3,3 V. Muchos shields de Arduino pensados para 5 V pueden no funcionar o dañarla.</li>
+<li>Aunque el formato sea igual, la numeración de los pines no coincide con la de un Arduino UNO: consulta el esquema de pines de tu placa antes de conectar un shield.</li>
+<li>Como en cualquier ESP32, algunos pines condicionan el arranque. Consulta la <a href="/doc-esp32">ficha del ESP32</a>.</li>
+<li>Las especificaciones de pines varían entre vendedores. Comprueba el modelo exacto que has comprado.</li>
+</ul>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Proyectos de domótica con WiFi y Bluetooth</li>
+<li>Control de <a href="/doc-reles">relés</a> y cargas desde el móvil</li>
+<li>Sensores como el <a href="/doc-dht">DHT</a>, el <a href="/doc-pir">PIR</a> o el <a href="/doc-hc-sr04">ultrasónico</a></li>
+<li>Reutilizar shields y carcasas de Arduino UNO con más potencia</li>
+</ul>
+<p class="note">Fuentes: <a href="https://docs.platformio.org/en/latest/boards/espressif32/wemos_d1_uno32.html" target="_blank" rel="noopener noreferrer">PlatformIO</a>, <a href="https://www.espboards.dev/esp32/d1-uno32/" target="_blank" rel="noopener noreferrer">ESPboards</a>, <a href="https://handsontec.com/dataspecs/module/ESP/WeMos%20D1%20R32.pdf" target="_blank" rel="noopener noreferrer">HandsOn Technology</a> y <a href="https://www.teachmemicro.com/getting-started-with-wemos-d1-r32/" target="_blank" rel="noopener noreferrer">Teach Me Micro</a>. Los datos son orientativos y pueden variar entre fabricantes.</p>
+<p class="back"><a href="/documentacion">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a></footer>
+</body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módulos de relé y contactores: guía y seguridad | Tarraco Domo</title>
+<meta name="description" content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/cabecera.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://tarracodomo.com/doc-reles">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tarraco Domo">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://tarracodomo.com/doc-reles">
+<meta property="og:title" content="Módulos de relé y contactores: guía y seguridad | Tarraco Domo">
+<meta property="og:description" content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V.">
+<meta property="og:image" content="https://tarracodomo.com/image-3.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@tarracodomo">
+<meta name="twitter:title" content="Módulos de relé y contactores: guía y seguridad | Tarraco Domo">
+<meta name="twitter:description" content="Ficha de módulos de relé con optoacoplador y contactores para domótica: capacidad, conexión NO/COM/NC, pines seguros con ESP32 y avisos de seguridad con 230 V.">
+<meta name="twitter:image" content="https://tarracodomo.com/image-3.png">
+<style>.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:.6rem 1rem;z-index:999}.skip:focus{left:1rem}</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://tarracodomo.com/"}, {"@type": "ListItem", "position": 2, "name": "Documentación", "item": "https://tarracodomo.com/documentacion"}, {"@type": "ListItem", "position": 3, "name": "Módulos de relé y contactores", "item": "https://tarracodomo.com/doc-reles"}]}</script>
+</head><body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<nav class="site-nav" aria-label="Navegacion principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menu"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
+<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"><img class="banner" src="/image-3.png" alt="Tarraco Domo: domótica, cámaras y monitorización en Tarragona" width="1200" height="675"></picture></a><div class="brand">Tarraco Domo</div></div></header>
+<main id="main" class="wrap">
+<h1 class="pt">Módulos de relé y contactores</h1>
+<p class="sub">Cómo una placa de 3,3 V puede encender y apagar luces, bombas o motores de forma segura.</p>
+<div class="doc">
+<h2>Aviso de seguridad</h2>
+<p class="note"><strong>La tensión de red (230 V) puede ser mortal.</strong> Corta la corriente en el cuadro eléctrico y comprueba con un detector de tensión antes de tocar cualquier cable. Si no tienes experiencia, la parte de 230 V debe hacerla un instalador eléctrico autorizado. Usa siempre una caja aislante y cierra los bornes.</p>
+<h2>Módulo de relé</h2>
+<p>Es la forma habitual de que un microcontrolador conmute una carga. Los módulos comunes de 1, 2, 4 u 8 canales se alimentan a 5 V y, mejor si llevan optoacoplador, aíslan la placa del circuito de potencia.</p>
+<table class="spec">
+<tr><th>Capacidad típica de contactos</th><td>10 A a 125 V CA, 7 A a 240 V CA y 7 A a 28 V CC (carga resistiva)</td></tr>
+<tr><th>Alimentación de la bobina</th><td>5 V, unos 70 mA por relé</td></tr>
+<tr><th>Señal de control</th><td>Entrada IN por canal; muchos módulos se activan con nivel bajo</td></tr>
+<tr><th>Contactos</th><td>COM (común), NO (normalmente abierto) y NC (normalmente cerrado)</td></tr>
+<tr><th>Aislamiento</th><td>Optoacoplador (por ejemplo PC817) en los módulos que lo incluyen</td></tr>
+</table>
+<p>La capacidad real depende del modelo y del tipo de carga. Para motores o cargas inductivas hay que reducirla bastante, y a 230 V conviene planificar con unos 7 A en lugar de 10 A.</p>
+<h2>Conexión de los contactos</h2>
+<ul class="list">
+<li><strong>COM y NO:</strong> la carga se enciende cuando el relé se activa. Es la conexión más habitual.</li>
+<li><strong>COM y NC:</strong> la carga está encendida en reposo y se apaga al activar el relé.</li>
+<li>El relé solo corta la fase. El neutro y la tierra van directamente a la carga.</li>
+</ul>
+<h2>Conexión con ESP32 y Wemos D1</h2>
+<ul class="list">
+<li>Si el módulo tiene un puente JD-VCC, quita el puente y alimenta las bobinas con una fuente de 5 V independiente. Así la lógica queda aíslada de la potencia.</li>
+<li>Conecta VCC del módulo a 3,3 V, que alimenta los LED del optoacoplador, y une las masas de la placa y de la fuente.</li>
+<li><strong>ESP32 y Wemos D1 R32:</strong> usa pines que no condicionen el arranque, como GPIO 5, 18, 19 y 21, y consulta el esquema de pines de tu placa para saber qué etiqueta corresponde a cada GPIO.</li>
+<li><strong>Wemos D1 con ESP8266:</strong> evita los pines que condicionan el arranque (D3, D4 y D8) para no bloquear el inicio.</li>
+<li>Si el módulo se activa con nivel bajo, el relé puede quedar activado al arrancar; conviene probarlo sin carga antes.</li>
+</ul>
+<h2>Contactores</h2>
+<p>Un contactor es un relé de potencia, pensado para cargas grandes como motores, bombas, calentadores de agua o climatización. Se instala en el cuadro eléctrico sobre raíl DIN. Su bobina (de 230 V CA o de 24 V, según el modelo) la gobierna un pequeño relé: la placa actúa sobre el módulo de relé, y este sobre la bobina del contactor, que conmuta la carga pesada.</p>
+<ul class="list">
+<li>Elige el contactor según la corriente de la carga y la tensión de su bobina.</li>
+<li>Para aplicaciones críticas, como calentadores de agua o equipos médicos, se usan contactores certificados en lugar de relés de módulo, y debe participar un instalador autorizado.</li>
+<li>Instala siempre protección en el cuadro: magnetotérmico y diferencial.</li>
+</ul>
+<h2>Aplicaciones</h2>
+<ul class="list">
+<li>Encender luces y enchufes desde el móvil</li>
+<li>Riego automático y bombas, por ejemplo con el <a href="/doc-hc-sr04">sensor ultrasónico</a> para medir el nivel del depósito</li>
+<li>Control de persianas, calefacción y puertas de garaje</li>
+<li>Relés integrados en Home Assistant con ESPHome</li>
+</ul>
+<p class="note">Fuentes: <a href="https://electricalflux.com/mcu-coding/esp32-relay-module-wiring-code-debug" target="_blank" rel="noopener noreferrer">ElectricalFlux</a>, <a href="https://makerhub.my/tutorials/relay-module-arduino-safety/" target="_blank" rel="noopener noreferrer">MakerHub</a>, <a href="https://projectslearner.com/esp32/relay-module" target="_blank" rel="noopener noreferrer">Projects Learner</a> y <a href="https://electronics.alibaba.com/buyingguides/esp32-relay-guide-wiring,-safety-real-world-use" target="_blank" rel="noopener noreferrer">Alibaba Electronics</a>. Los datos son orientativos; consulta siempre la ficha del módulo o contactor concreto y la normativa eléctrica vigente.</p>
+<p class="back"><a href="/documentacion">← Volver a Documentación</a></p>
+</div>
+</main>
+<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Política de privacidad</a> · <a href="/cookies">Cookies</a> · <a href="https://x.com/tarracodomo" target="_blank" rel="noopener noreferrer">X</a></footer>
+</body></html>
