@@ -4,7 +4,7 @@
 <title>Meshtastic: red de radio sin internet | Tarraco Domo</title>
 <meta content="Meshtastic en Tarragona: red de mensajería por radio LoRa sin internet ni cobertura. Qué es, cómo funciona la malla, hardware compatible, banda de 868 MHz en España y qué montamos." name="description"/>
 <link href="/styles.css" rel="stylesheet"/>
-<style>.ic{background:#0b1220;border-radius:10px;padding:10px;margin-bottom:14px}.ic svg{width:100%;height:auto;display:block}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.grid{grid-template-columns:minmax(0,1fr)}}</style>
+<style>.ic{background:#0b1220;border-radius:10px;padding:10px;margin-bottom:14px}.ic svg{width:100%;height:auto;display:block}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.dos{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.dos .card img{height:260px}@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.grid,.grid.dos{grid-template-columns:minmax(0,1fr)}}</style>
 <link href="/cabecera.css" rel="stylesheet"/>
 <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="https://tarracodomo.com/meshtastic" rel="canonical"/>
@@ -49,11 +49,11 @@
 <p>El precio de esa eficiencia es la velocidad: son mensajes cortos de texto y datos, no llamadas ni vídeo. Además, la radio es semidúplex, así que un nodo que está oyendo no está hablando. En una malla con mucho tráfico, los mensajes largos o los envíos constantes saturan el canal.</p>
 <h2>Nuestras placas, en fotos</h2>
 <p class="sub">Los equipos con los que montamos y probamos los nodos. Fotografías propias de Tarraco Domo.</p>
-<div class="grid">
-<div class="card"><img alt="Placa Heltec WiFi LoRa 32 con radio LoRa y pantalla OLED" decoding="async" loading="lazy" src="/img/heltec%20wifi%20lora%2032.jpg" style="display:block;width:100%;height:180px;object-fit:contain;border-radius:10px;margin-bottom:14px"/><h3>Heltec WiFi LoRa 32</h3><p>ESP32-S3, radio SX1262 y OLED integrada: la opción más directa para el primer nodo.</p></div>
-<div class="card"><img alt="Placa LILYGO T-Beam con GPS y soporte para batería 18650" decoding="async" loading="lazy" src="/img/meshtastic-tbeam.webp" style="display:block;width:100%;height:180px;object-fit:contain;border-radius:10px;margin-bottom:14px"/><h3>LILYGO T-Beam</h3><p>Radio, GPS y hueco para una 18650. Pensada para llevar encima o dejar en el coche.</p></div>
-<div class="card"><img alt="WisBlock RAK19007 con módulo RAK3312 de radio LoRa SX1262" decoding="async" loading="lazy" src="/img/WisBlock%20RAK19007%20y%20RAK3312%20SX1262%20LoRa%20WiFi%20BLE%20ESP32-S3.webp" style="display:block;width:100%;height:180px;object-fit:contain;border-radius:10px;margin-bottom:14px"/><h3>RAK WisBlock</h3><p>Base RAK19007 con el módulo RAK3312 (ESP32-S3 y SX1262). Se amplía encajando placas.</p></div>
-<div class="card"><img alt="LILYGO T-Deck Plus con teclado y pantalla" decoding="async" loading="lazy" src="/img/LILYGO%20T-Deck%20Plus%20ESP32-S3%20-%20Placa%20de%20desarrollo%20de%20915%20MHz.jpg" style="display:block;width:100%;height:180px;object-fit:contain;border-radius:10px;margin-bottom:14px"/><h3>LILYGO T-Deck Plus</h3><p>Teclado y pantalla grande: mensajería sin depender del móvil.</p></div>
+<div class="grid dos">
+<div class="card"><img alt="Placa Heltec WiFi LoRa 32 con radio LoRa y pantalla OLED" decoding="async" loading="lazy" src="/img/heltec%20wifi%20lora%2032.jpg" style="display:block;width:100%;object-fit:contain;border-radius:10px;margin-bottom:14px"/><h3>Heltec WiFi LoRa 32</h3><p>ESP32-S3, radio SX1262 y OLED integrada: la opción más directa para el primer nodo.</p></div>
+<div class="card"><img alt="Placa LILYGO T-Beam con GPS y soporte para batería 18650" decoding="async" loading="lazy" src="/img/meshtastic-tbeam.webp" style="display:block;width:100%;object-fit:contain;border-radius:10px;margin-bottom:14px"/><h3>LILYGO T-Beam</h3><p>Radio, GPS y hueco para una 18650. Pensada para llevar encima o dejar en el coche.</p></div>
+<div class="card"><img alt="WisBlock RAK19007 con módulo RAK3312 de radio LoRa SX1262" decoding="async" loading="lazy" src="/img/WisBlock%20RAK19007%20y%20RAK3312%20SX1262%20LoRa%20WiFi%20BLE%20ESP32-S3.webp" style="display:block;width:100%;object-fit:contain;border-radius:10px;margin-bottom:14px"/><h3>RAK WisBlock</h3><p>Base RAK19007 con el módulo RAK3312 (ESP32-S3 y SX1262). Se amplía encajando placas.</p></div>
+<div class="card"><img alt="LILYGO T-Deck Plus con teclado y pantalla" decoding="async" loading="lazy" src="/img/LILYGO%20T-Deck%20Plus%20ESP32-S3%20-%20Placa%20de%20desarrollo%20de%20915%20MHz.jpg" style="display:block;width:100%;object-fit:contain;border-radius:10px;margin-bottom:14px"/><h3>LILYGO T-Deck Plus</h3><p>Teclado y pantalla grande: mensajería sin depender del móvil.</p></div>
 </div>
 <p class="note">Algunos de estos equipos se venden también en versión de 915 MHz para América. En España hay que usar la de 868 MHz.</p>
 
