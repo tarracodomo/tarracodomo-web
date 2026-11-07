@@ -1,0 +1,119 @@
+name: Completar correcciones de la web
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/completar-correcciones.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  corregir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Aplicar y validar
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          import re, sys
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+
+          base = 'https://tarracodomo.com'
+          legal = {'aviso-legal.html', 'privacidad.html', 'cookies.html'}
+          nav = re.search(r'<nav\b.*?</nav>', Path('index.html').read_text(encoding='utf-8'), re.S).group(0).replace(' class="act"', '')
+
+          Path('legal-nav.css').write_text(
+              '.site-nav{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.97);border-bottom:1px solid #334155;line-height:1.65}\n'
+              '.site-nav .wrap{position:relative;max-width:1100px;margin:0 auto;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:8px 14px}\n'
+              '.site-nav a{color:var(--txt);text-decoration:none;font-size:.95rem}\n'
+              '.site-nav a:hover{color:var(--acc)}\n'
+              '.site-nav b{color:var(--acc)}\n'
+              '.site-nav a.brandlink{margin-left:0}\n'
+              '.site-nav .site-links{display:flex;flex-wrap:wrap;gap:4px 14px;margin-left:auto}\n'
+              '.site-nav .site-email{margin-left:14px}\n'
+              '@media(max-width:760px){.site-nav .site-links,.site-nav .site-email{display:none}}\n',
+              encoding='utf-8')
+
+          width, height = Image.open('image-3.png').size
+          if not Path('tarraco-domo.webp').exists():
+              Image.open('image-3.png').save('tarraco-domo.webp', 'WEBP', quality=90, method=6)
+
+          if not Path('favicon.ico').exists():
+              s, k = 256, 4.0
+              ic = Image.new('RGBA', (s, s), (0, 0, 0, 0))
+              d = ImageDraw.Draw(ic)
+              d.rounded_rectangle((0, 0, s - 1, s - 1), radius=int(14 * k), fill=(15, 23, 42, 255))
+              pts = [(32, 11), (11, 28), (11, 53), (26, 53), (26, 40), (38, 40), (38, 53), (53, 53), (53, 28)]
+              d.polygon([(x * k, y * k) for x, y in pts], fill=(56, 189, 248, 255))
+              ic.save('favicon.ico', sizes=[(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
+
+          def fix(m):
+              attr, q, val = m.group(1), m.group(2), m.group(3)
+              p = re.fullmatch(r'([a-z0-9-]+)\.html(#.*)?', val)
+              if p:
+                  return f'{attr}={q}' + ('/' if p.group(1) == 'index' else '/' + p.group(1)) + (p.group(2) or '') + q
+              if re.fullmatch(r'[A-Za-z0-9_-]+\.(css|jpg|png|svg|webp|ico)', val):
+                  return f'{attr}={q}/{val}{q}'
+              return m.group(0)
+
+          n = 0
+          for f in sorted(Path('.').glob('*.html')):
+              t0 = f.read_text(encoding='utf-8')
+              t = t0
+              if f.name in legal and 'site-nav' not in t:
+                  t = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + '\n' + nav + '\n', t, count=1)
+                  t = t.replace('</head>', '<link rel="stylesheet" href="/legal-nav.css">\n</head>', 1)
+              t = re.sub(r'\b(href|src)=(["\'])([^"\']*)\2', fix, t)
+              if f.name != '404.html' and 'rel="canonical"' not in t:
+                  url = base + '/' if f.stem == 'index' else f'{base}/{f.stem}'
+                  t = t.replace('</head>', f'<link rel="canonical" href="{url}">\n</head>', 1)
+              if 'favicon.ico' not in t:
+                  t = t.replace('</head>', '<link rel="icon" href="/favicon.ico" sizes="32x32">\n</head>', 1)
+              if '/image-3.png' in t and '<picture' not in t:
+                  def pic(m):
+                      tag = '<img' + m.group(1) + 'src="/image-3.png"' + m.group(2)
+                      if 'width=' not in tag:
+                          tag += f' width="{width}" height="{height}"'
+                      return '<picture><source srcset="/tarraco-domo.webp" type="image/webp">' + tag + '</picture>'
+                  t = re.sub(r'<img([^>]*?)src="/image-3\.png"([^>]*)>', pic, t)
+              if t != t0:
+                  f.write_text(t, encoding='utf-8')
+                  n += 1
+
+          sm = Path('sitemap.xml')
+          s = sm.read_text(encoding='utf-8')
+          for slug in ('meshtastic', 'doc-pantallas-tactiles'):
+              loc = base + '/' + slug
+              if '<loc>' + loc + '</loc>' not in s:
+                  s = s.replace('</urlset>', '  <url><loc>' + loc + '</loc><lastmod>2026-11-07</lastmod><priority>0.5</priority></url>\n</urlset>')
+          sm.write_text(s, encoding='utf-8')
+
+          bad = []
+          for f in sorted(Path('.').glob('*.html')):
+              t = f.read_text(encoding='utf-8')
+              if '</html>' not in t:
+                  bad.append(f.name + ': sin cierre')
+              if re.search(r'href="/(?!/)[a-z0-9-]+\.html"', t):
+                  bad.append(f.name + ': quedan enlaces .html')
+              if f.name != '404.html' and 'rel="canonical"' not in t:
+                  bad.append(f.name + ': sin canonical')
+              for src in re.findall(r'(?:href|src)="(/[^"#?]+)', t):
+                  if not Path(src.lstrip('/')).exists():
+                      bad.append(f.name + ': falta ' + src)
+          print('paginas modificadas:', n)
+          if bad:
+              print('VALIDACION FALLIDA:')
+              for b in sorted(set(bad)):
+                  print(' -', b)
+              sys.exit(1)
+          print('VALIDACION OK')
+          PY
+          if [ -z "$(git status --porcelain)" ]; then echo "sin cambios"; exit 0; fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Web: favicon.ico, banner WebP, cabecera legal, canonical, sitemap y enlaces limpios"
+          git push
