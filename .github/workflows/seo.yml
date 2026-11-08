@@ -7,21 +7,49 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: rutas-limpias
+  cancel-in-progress: false
+
 jobs:
   patch:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Completar metadatos y limpiar el pie
-        run: python tools/seo_patch.py
-      - name: Guardar cambios
+      - name: Sincronizar, completar SEO y publicar
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git diff --staged --quiet || git commit -m "SEO automático: metadatos sociales y limpieza del pie [skip ci]"
-          git push
+          for intento in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python tools/seo_patch.py
+            for f in *.html; do
+              base="${f%.html}"
+              case "$base" in index|404) continue ;; esac
+              mkdir -p "$base"
+              cp "$f" "$base/index.html"
+            done
+            git add -A
+            if git diff --cached --quiet; then
+              echo "Sin cambios pendientes"
+              exit 0
+            fi
+            git commit -m "SEO automático: metadatos y rutas sincronizadas [skip ci]"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((intento * 3))
+          done
+          echo "::error::Publicacion SEO rechazada tras cinco intentos"
+          exit 1
