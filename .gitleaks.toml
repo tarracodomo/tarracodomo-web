@@ -2,5 +2,6 @@
 useDefault = true
 
 [allowlist]
-description = "Site keys publicas de reCAPTCHA"
-regexes = ['''v3?[Rr]ecaptcha[Ss]iteKey''']
+description = "Site keys publicas de reCAPTCHA del articulo de How-To Geek"
+paths = ['''img/home-assistant-img\.html''']
+regexes = ['''6LeXhCsUAAAAAPI3u-Fknyv2O01JI1GEfnRWV4it''', '''6LeSSAgcAAAAAIhFE7Ur-GPl8hdV93LRZqWHvPoL''']
