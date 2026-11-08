@@ -14,35 +14,48 @@ permissions:
 
 concurrency:
   group: rutas-limpias
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   carpetas:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
-      - name: Crear una carpeta por página
+      - name: Sincronizar, generar y guardar rutas limpias
+        shell: bash
         run: |
-          set -e
-          for f in *.html; do
-            base="${f%.html}"
-            case "$base" in
-              index|404) continue ;;
-            esac
-          mkdir -p "$base"
-            cp "$f" "$base/index.html"
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for intento in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            archivos=()
+            for f in *.html; do
+              base="${f%.html}"
+              case "$base" in
+                index|404) continue ;;
+              esac
+              mkdir -p "$base"
+              cp "$f" "$base/index.html"
+              archivos+=("$base/index.html")
+            done
+            git add -- "${archivos[@]}"
+            if git diff --cached --quiet; then
+              echo "Rutas actualizadas; sin cambios pendientes"
+              exit 0
+            fi
+            git commit -m "Rutas limpias: sincroniza páginas"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push rechazado; regenerando desde main (intento $intento/5)"
+            sleep $((intento * 3))
           done
-          ls -d */
-
-      - name: Guardar cambios
-        run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "Sin cambios"
-            exit 0
-          fi
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
-          git add -A
-          git commit -m "Rutas limpias: una carpeta por página"
-          git push
+          echo "::error::No se pudieron publicar las rutas tras cinco intentos"
+          exit 1
