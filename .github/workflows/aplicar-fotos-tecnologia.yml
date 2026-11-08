@@ -18,7 +18,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Aplicar fotos y sincronizar paginas
+      - name: Aplicar fotos y sincronizar
         shell: bash
         run: |
           set -euo pipefail
@@ -32,15 +32,18 @@ jobs:
           from pathlib import Path
           from html import escape
           cambios = {
+              'ESP32-C6': [('esp32-c6.jpg', 'Placa ESP32-C6')],
+              'Placas Arduino': [('propias/arduino-uno.webp', 'Placa Arduino Uno')],
+              'Placas Wemos D1 con WiFi': [('wemos-d1-esp8266.jpg', 'Placa Wemos D1 con WiFi ESP8266')],
               'ESP32-CAM': [('ESP32-CAM-.jpg', 'Placa ESP32-CAM')],
               'Módulos de relé': [('modulo-reles-16ch.jpeg', 'Módulo de relés de 16 canales')],
               'Raspberry Pi': [('raspberry-pi.jpg', 'Raspberry Pi')],
               'Sensores DHT11 y DHT22': [('dht11-dht22.jpg', 'Sensores DHT11 y DHT22')],
-              'Sensores PIR y ultrasónicos': [('diferentes-tipos-sensores.jpg', 'Diferentes tipos de sensores'), ('sensor-ultrasonido-hc-sr04.jpg', 'Sensor ultrasónico HC-SR04')],
+              'Sensores PIR y ultrasónicos': [('propias/SENSOR-pir-SR501.webp', 'Sensor PIR HC-SR501'), ('sensor-ultrasonido-hc-sr04.jpg', 'Sensor ultrasónico HC-SR04')],
           }
           pagina = Path('tecnologia.html')
           contenido = pagina.read_text(encoding='utf-8')
-          titulos_antes = re.findall(r'<h[1-6]\b[^>]*>.*?</h[1-6]>', contenido, re.S)
+          titulos = re.findall(r'<h[1-6]\b[^>]*>.*?</h[1-6]>', contenido, re.S)
           for titulo, fotos in cambios.items():
               for nombre, _ in fotos:
                   if not (Path('img') / nombre).is_file():
@@ -50,9 +53,19 @@ jobs:
               patron = r'(<div class="card part"><div class="pic")[^>]*>(?:(?!<div class="card part">).)*?</div>(<h3>' + re.escape(titulo) + r'</h3>)'
               contenido, numero = re.subn(patron, lambda m: m.group(1) + ' style="display:flex;justify-content:center;align-items:center;gap:8px">' + imagenes + '</div>' + m.group(2), contenido, flags=re.S)
               if numero != 1:
-                  raise RuntimeError(f'Tarjeta no identificada de forma única: {titulo} ({numero})')
-          if re.findall(r'<h[1-6]\b[^>]*>.*?</h[1-6]>', contenido, re.S) != titulos_antes:
-              raise RuntimeError('Se han alterado los titulos; no se guarda nada')
+                  raise RuntimeError(f'Tarjeta no identificada: {titulo} ({numero})')
+          nueva = Path('img/pantalla-tactil-3,5.jpg')
+          if not nueva.is_file():
+              raise RuntimeError('Falta la foto del panel tactil')
+          patron = r'(<section id="galeria-propia">)(.*?)(</section>)'
+          def galeria(m):
+              cuerpo, numero = re.subn(r'<img\b[^>]*\bsrc="/img/propias/panel-tactil.webp"[^>]*>', '<img src="/img/pantalla-tactil-3,5.jpg" alt="Pantalla táctil de 3,5 pulgadas" loading="lazy" decoding="async" style="display:block;width:100%;height:180px;object-fit:contain;object-position:center;border-radius:10px;margin-bottom:14px"/>', m.group(2))
+              if numero != 1 and '/img/pantalla-tactil-3,5.jpg' not in cuerpo:
+                  raise RuntimeError('Panel tactil no identificado en la galeria')
+              return m.group(1) + cuerpo + m.group(3)
+          contenido, numero = re.subn(patron, galeria, contenido, flags=re.S)
+          if numero != 1 or re.findall(r'<h[1-6]\b[^>]*>.*?</h[1-6]>', contenido, re.S) != titulos:
+              raise RuntimeError('Validacion de estructura fallida')
           pagina.write_text(contenido, encoding='utf-8')
           copia = Path('tecnologia/index.html')
           copia.parent.mkdir(exist_ok=True)
@@ -60,10 +73,10 @@ jobs:
           PY
             git add -- tecnologia.html tecnologia/index.html
             if git diff --cached --quiet; then
-              echo 'Las seis fotos ya estan aplicadas'
+              echo 'Las fotos ya estan aplicadas'
               exit 0
             fi
-            git commit -m 'Tecnologia: aplicar seis fotos nuevas y sincronizar paginas'
+            git commit -m 'Tecnologia: completar placas y corregir PIR y panel tactil'
             if git push origin HEAD:main; then
               exit 0
             fi
