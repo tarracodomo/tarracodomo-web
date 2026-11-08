@@ -12,49 +12,50 @@ permissions:
   contents: write
 
 concurrency:
-  group: analitica
-  cancel-in-progress: true
+  group: rutas-limpias
+  cancel-in-progress: false
 
 jobs:
   snippet:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-
-      - name: Insertar snippet y regenerar carpetas
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Sincronizar analitica y carpetas con reintentos
+        shell: bash
         run: |
-          python3 - <<'PY'
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for intento in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python3 - <<'PY'
           import pathlib, shutil
-          SNIPPET = "<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"fc4a22d99a2740a48d0bb8af129d22fc\"}'></script><!-- End Cloudflare Web Analytics -->"
-          changed = []
+          snippet = '''<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fc4a22d99a2740a48d0bb8af129d22fc"}'></script><!-- End Cloudflare Web Analytics -->'''
           for f in sorted(pathlib.Path('.').glob('*.html')):
-              t = f.read_text(encoding='utf-8')
-              if 'cloudflareinsights' not in t:
-                  if '</body>' in t:
-                      t = t.replace('</body>', SNIPPET + '\n</body>', 1)
-                  else:
-                      t = t + SNIPPET + '\n'
-                  f.write_text(t, encoding='utf-8')
-                  changed.append(f.name)
-          print('Con snippet:', len(changed))
-          for f in sorted(pathlib.Path('.').glob('*.html')):
-              name = f.stem
-              if name in ('index', '404'):
-                  continue
-              d = pathlib.Path(name)
-              d.mkdir(exist_ok=True)
-              shutil.copyfile(f, d / 'index.html')
-          print('Carpetas regeneradas')
+              text = f.read_text(encoding='utf-8')
+              if 'cloudflareinsights' not in text:
+                  text = text.replace('</body>', snippet + '\n</body>', 1) if '</body>' in text else text + snippet + '\n'
+                  f.write_text(text, encoding='utf-8')
+              if f.stem not in ('index', '404'):
+                  directory = pathlib.Path(f.stem)
+                  directory.mkdir(exist_ok=True)
+                  shutil.copyfile(f, directory / 'index.html')
           PY
-
-      - name: Guardar cambios
-        run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "Sin cambios"
-            exit 0
-          fi
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
-          git add -A
-          git commit -m "Analitica: snippet y carpetas limpias al dia"
-          git push
+            git add -- '*.html' '*/index.html'
+            if git diff --cached --quiet; then
+              echo "Analitica y carpetas actualizadas"
+              exit 0
+            fi
+            git commit -m "Analitica: sincroniza snippet y rutas"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((intento * 3))
+          done
+          echo "::error::Publicacion rechazada tras cinco intentos"
+          exit 1
