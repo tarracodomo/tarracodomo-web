@@ -1,0 +1,6 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Site keys publicas de reCAPTCHA"
+regexes = ['''v3?[Rr]ecaptcha[Ss]iteKey''']
