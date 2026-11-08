@@ -1,0 +1,72 @@
+name: Aplicar fotos de Tecnologia
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/aplicar-fotos-tecnologia.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rutas-limpias
+  cancel-in-progress: false
+jobs:
+  aplicar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Aplicar fotos y sincronizar paginas
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for intento in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python3 - <<'PY'
+          import re
+          from pathlib import Path
+          from html import escape
+          cambios = {
+              'ESP32-CAM': [('ESP32-CAM-.jpg', 'Placa ESP32-CAM')],
+              'Módulos de relé': [('modulo-reles-16ch.jpeg', 'Módulo de relés de 16 canales')],
+              'Raspberry Pi': [('raspberry-pi.jpg', 'Raspberry Pi')],
+              'Sensores DHT11 y DHT22': [('dht11-dht22.jpg', 'Sensores DHT11 y DHT22')],
+              'Sensores PIR y ultrasónicos': [('diferentes-tipos-sensores.jpg', 'Diferentes tipos de sensores'), ('sensor-ultrasonido-hc-sr04.jpg', 'Sensor ultrasónico HC-SR04')],
+          }
+          pagina = Path('tecnologia.html')
+          contenido = pagina.read_text(encoding='utf-8')
+          titulos_antes = re.findall(r'<h[1-6]\b[^>]*>.*?</h[1-6]>', contenido, re.S)
+          for titulo, fotos in cambios.items():
+              for nombre, _ in fotos:
+                  if not (Path('img') / nombre).is_file():
+                      raise RuntimeError(f'Falta la imagen: {nombre}')
+              ancho = '100%' if len(fotos) == 1 else '48%'
+              imagenes = ''.join(f'<img src="/img/{escape(nombre, quote=True)}" alt="{escape(alt, quote=True)}" loading="lazy" decoding="async" style="display:block;width:{ancho};height:180px;object-fit:contain;object-position:center;border-radius:10px"/>' for nombre, alt in fotos)
+              patron = r'(<div class="card part"><div class="pic")[^>]*>(?:(?!<div class="card part">).)*?</div>(<h3>' + re.escape(titulo) + r'</h3>)'
+              contenido, numero = re.subn(patron, lambda m: m.group(1) + ' style="display:flex;justify-content:center;align-items:center;gap:8px">' + imagenes + '</div>' + m.group(2), contenido, flags=re.S)
+              if numero != 1:
+                  raise RuntimeError(f'Tarjeta no identificada de forma única: {titulo} ({numero})')
+          if re.findall(r'<h[1-6]\b[^>]*>.*?</h[1-6]>', contenido, re.S) != titulos_antes:
+              raise RuntimeError('Se han alterado los titulos; no se guarda nada')
+          pagina.write_text(contenido, encoding='utf-8')
+          copia = Path('tecnologia/index.html')
+          copia.parent.mkdir(exist_ok=True)
+          copia.write_text(contenido, encoding='utf-8')
+          PY
+            git add -- tecnologia.html tecnologia/index.html
+            if git diff --cached --quiet; then
+              echo 'Las seis fotos ya estan aplicadas'
+              exit 0
+            fi
+            git commit -m 'Tecnologia: aplicar seis fotos nuevas y sincronizar paginas'
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((intento * 3))
+          done
+          exit 1
