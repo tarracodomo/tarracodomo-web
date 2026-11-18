@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heltec V4 para MeshCore | Tarraco Domo</title>
+<meta name="description" content="Ficha técnica orientativa de la placa Heltec V4 utilizada con MeshCore: ESP32-S3, radio LoRa 868 MHz, pantalla OLED y alimentación.">
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/cabecera.css">
+<link rel="canonical" href="https://tarracodomo.com/doc-heltec-v4-meshcore">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="32x32">
+<meta name="theme-color" content="#ffffff">
+<style>.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:.6rem 1rem;z-index:999}.skip:focus{left:1rem}</style>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tarraco Domo">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://tarracodomo.com/doc-heltec-v4-meshcore">
+<meta property="og:title" content="Heltec V4 para MeshCore | Tarraco Domo">
+<meta property="og:description" content="Ficha técnica orientativa de la placa Heltec V4 utilizada con MeshCore: ESP32-S3, radio LoRa 868 MHz, pantalla OLED y alimentación.">
+<meta property="og:image" content="https://tarracodomo.com/image-3.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Tarraco Domo: domótica, cámaras y monitorización en Tarragona">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@tarracodomo">
+<meta name="twitter:title" content="Heltec V4 para MeshCore | Tarraco Domo">
+<meta name="twitter:description" content="Ficha técnica orientativa de la placa Heltec V4 utilizada con MeshCore: ESP32-S3, radio LoRa 868 MHz, pantalla OLED y alimentación.">
+<meta name="twitter:image" content="https://tarracodomo.com/image-3.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://tarracodomo.com/"}, {"@type": "ListItem", "position": 2, "name": "Documentación", "item": "https://tarracodomo.com/documentacion"}, {"@type": "ListItem", "position": 3, "name": "Heltec V4 para MeshCore", "item": "https://tarracodomo.com/doc-heltec-v4-meshcore"}]}</script>
+</head><body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<nav class="site-nav" aria-label="Navegación principal"><div class="wrap"><details class="site-menu"><summary aria-label="Abrir o cerrar menú"><span aria-hidden="true">☰</span></summary><div class="site-links"><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/tecnologia">Tecnología</a><a href="/programacion">Programación</a><a href="/proyectos">Proyectos</a><a href="/meshtastic">Meshtastic</a><a class="act" href="/documentacion">Documentación</a><a href="/contacto">Contacto</a></div></details><a class="brandlink" href="/"><b>Tarraco Domo</b></a><a class="site-email" href="mailto:info@tarracodomo.com">info@tarracodomo.com</a></div></nav>
+<header class="hero mini"><div class="wrap"><a href="/"><picture><source srcset="/tarraco-domo.webp" type="image/webp"><img class="banner" src="/image-3.png" alt="Tarraco Domo" width="1200" height="675"></picture></a></div></header>
+<main id="main" class="wrap"><h1 class="pt">Heltec V4 · MeshCore</h1><p class="sub">Placa LoRa para explorar redes MeshCore y montajes experimentales de comunicación en malla.</p>
+<div class="doc"><div class="ficha"><figure><img src="/img/heltec_v4_meshcore.jpg" alt="Placa Heltec V4 utilizada con MeshCore" width="1200" loading="lazy" decoding="async"><figcaption>Fotografía propia de Tarraco Domo.</figcaption></figure><div class="datos"><h2>Especificaciones orientativas</h2><table class="spec"><tr><th>Plataforma</th><td>Heltec LoRa 32 V4, basada en ESP32-S3</td></tr><tr><th>Radio</th><td>LoRa / frecuencia según la versión del equipo</td></tr><tr><th>Uso</th><td>MeshCore, Meshtastic u otros firmwares compatibles</td></tr><tr><th>Conectividad</th><td>WiFi y Bluetooth integrados en el ESP32-S3</td></tr><tr><th>Pantalla</th><td>OLED integrada, según la versión y montaje</td></tr><tr><th>Alimentación</th><td>USB y opciones de batería o fuente externas</td></tr></table></div></div>
+<h2>Qué es MeshCore</h2><p>MeshCore es una plataforma de comunicación de texto y datos sobre redes LoRa. Permite construir nodos de mensajería, repetidores y puertas de enlace, configurando el equipo para una región y una frecuencia compatibles.</p>
+<h2>Configuración importante</h2><ul class="list"><li>En España hay que usar una versión preparada para 868 MHz y configurar EU_868 o el plan válido del firmware.</li><li>La región, el preset o el plan de canales deben coincidir entre los nodos.</li><li>Se debe respetar el ciclo de trabajo y la potencia máxima autorizada.</li><li>Usar antena correcta y no transmitir sin ella.</li></ul>
+<h2>Cómo se programa</h2><p>El firmware y las herramientas dependen de MeshCore y de la revisión concreta de la placa. La configuración debe hacerse desde la documentación oficial del proyecto y verificando que el modelo aparezca como compatible.</p>
+<p class="note">Fuentes: <a href="https://meshcore.co.uk" target="_blank" rel="noopener noreferrer">MeshCore</a>, <a href="https://heltec.org" target="_blank" rel="noopener noreferrer">Heltec Automation</a>.</p>
+<p class="back"><a href="/documentacion">← Volver a Documentación</a></p></div></main>
+<footer>© 2026 Tarraco Domo · <a href="/aviso-legal">Aviso legal</a> · <a href="/privacidad">Privacidad</a> · <a href="/cookies">Cookies</a></footer>
+</body></html>
